@@ -1,10 +1,39 @@
-# My Personal Project
+# Riemman Sum Calculator
 
-## A subtitle
+## A mathematical tool designed to compute left, midpoint, right riemman sums as well as trapezoidal and Simpson's rule.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+The following is answered in this README:
+- What will this application do?
+- Who will use it?
+- Why is this project of interest to you?
 
-An example of text with **bold** and *italic* fonts.  
+An example of text with **bold** and *italic* fonts.
+
+### 1. What will this application do?
+
+- The Riemman Sum calculator will serve as a desktop application designed to estimate integrals by using Riemman Sums of the left, midpoint, or right variety. 
+- Given a relatively simple function (basic polynomial, trigonemtric, exponential functions and more) and a partition widith, this calculator will be able aproximate integrals and provide a visualization for your riemman sum.
+- Additional features include:
+    - History of your previous Riemman Sum computations 
+    - Exercises to practice Riemman Sum computations will also be provided.
+
+### 2. Who will use it?
+
+- At the moment, I'm doing an Integral Calculus course, so this tool will be very benefical for me to both practice Riemman Sums, and also checking my work using them. It will also serve as a visual aid as it will shorten the time to see all three Left, Midpoint, and Right Riemman Sums at once, and then compare the differences between them.
+- Other Integral Calculus students who are just starting to learn about integrals can also leverage this tool to understand how Riemman Sums work, which ones are more accurate, and ultimately what an integral really is.
+
+### 3. Why is this project of interest to you?
+
+- I enjoy math, so I wanted to make a project that pertains to math and this seemed to be a good option. While an integral or derivative calculator would be cool to make, it would be on orders of magnitude more
+  complex than this, so I decided to settle with a Riemman Sum Calculator that will still have some challenges such as parsing functions in reverse polish notation and visualizing the Riemman sums. 
+- In addition, this will serve to be a handy tool to check my work when doing Riemman sums, especially when the n value is large (no one wants to manually compute 36 rectangles)
+
+### 4. User Stories
+
+- As a user, I want to be able to compute left, right, midpoint sums.
+- As a user, I want to see a history of all my Riemman Sum calculations
+- As a user, I want to be able to input basic fundamental trigonometric, logarithmic, constant, or linear function to compute my Riemman sum.
+- As a user, I want to be able to adjust the n value used the most recent Riemman Sum calculation without having to input the function in again
+
+
+
