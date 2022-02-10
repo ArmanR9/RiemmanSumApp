@@ -13,8 +13,9 @@ class RiemmanSumTest {
     void runBefore(){
         // Function : 4 * sqrt(1 - x^2)
         testSum = new RiemmanSum(0, 1, 5); // [0, 1] with 5 rectangles
-        invalidSum = new RiemmanSum(1, Math.PI, 3); // [1, pi] with 3 rectangles
+        invalidSum = new RiemmanSum(0.5, Math.PI, 3); // [0.5, pi] with 3 rectangles
     }
+
 
     @Test
     void testConstructor(){
@@ -24,13 +25,31 @@ class RiemmanSumTest {
         assertEquals(5, testSum.getNumOfRectangles());
         assertEquals(0, testSum.getComputationHistorySize());
 
+        double a = testSum.getIntervalA();
+        double b = testSum.getIntervalB();
+        int n = testSum.getNumOfRectangles();
+        assertEquals((b - a) / (double)n, testSum.getDeltaX());
+
         // invalidSum construction
-        assertEquals(1, invalidSum.getIntervalA());
+        assertEquals(0.5, invalidSum.getIntervalA());
         assertEquals(Math.PI, invalidSum.getIntervalB(), 0.1);
         assertEquals(3, invalidSum.getNumOfRectangles());
         assertEquals(0, invalidSum.getComputationHistorySize());
 
+        a = invalidSum.getIntervalA();
+        b = invalidSum.getIntervalB();
+        n = invalidSum.getNumOfRectangles();
+        assertEquals((b - a) / (double)n, invalidSum.getDeltaX());
+
     }
+
+    @Test
+    void testSumComputationException() {
+        tryCatchSetup(invalidSum, Computation.SumType.LEFT);
+        tryCatchSetup(invalidSum, Computation.SumType.RIGHT);
+        tryCatchSetup(invalidSum, Computation.SumType.MIDPOINT);
+    }
+
 
     @Test
     void testRightSum(){
@@ -66,6 +85,37 @@ class RiemmanSumTest {
         assertEquals(2.63704, testSum.getComputationHistory().get(1), 0.1);
 
 
+    }
+
+    private void tryCatchSetup(RiemmanSum sumObj, Computation.SumType type) {
+        if (type == Computation.SumType.LEFT) {
+            try {
+                sumObj.computeLeftSum();
+                fail();
+            } catch (ArithmeticException e) {
+                // do nothing
+            } catch (Exception e) {
+                fail();
+            }
+        } else if (type == Computation.SumType.RIGHT) {
+            try {
+                sumObj.computeRightSum();
+                fail();
+            } catch (ArithmeticException e) {
+                // do nothing
+            } catch (Exception e) {
+                fail();
+            }
+        } else if (type == Computation.SumType.MIDPOINT) {
+            try {
+                sumObj.computeMidSum();
+                fail();
+            } catch (ArithmeticException e) {
+                // do nothing
+            } catch (Exception e) {
+                fail();
+            }
+        }
     }
 
 

@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+Riemman Sum class that encapsulates core
+approximation functionality such as computing left, right
+,and midpoint Riemman sums, in addition to storing history
+of computations.
+ */
 public class RiemmanSum {
     private List<Computation> computationStats;
     private List<Double> computationHistory;
@@ -30,7 +36,7 @@ public class RiemmanSum {
         double sum = 0.0;
 
         for (int i = 1; i <= numOfRectanglesN; ++i) {
-            sum += 4 * Math.sqrt(1 - Math.pow(((double)i / numOfRectanglesN), 2));
+            sum += 4 * Math.sqrt(1 - Math.pow(intervalA + ((double)i * deltaX), 2));
 
             if (Double.isNaN(sum)) {
                 throw new ArithmeticException("Interval leads to negative square root -- cannot compute.");
@@ -44,7 +50,7 @@ public class RiemmanSum {
 
     // MODIFIES: this
     // EFFECTS: Computes left Riemman sum and adds it to computationHistory
-    public double computeLeftSum() {
+    public double computeLeftSum() throws ArithmeticException {
 
         double sum = 0.0;
 
@@ -77,50 +83,6 @@ public class RiemmanSum {
         }
 
         sum *= deltaX;
-        computationHistory.add(sum);
-        return sum;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Computes trapezoidal Riemman sum and adds it to computationHistory
-    public double computeTrapezoidalSum() {
-
-        double sum = 0.0;
-        sum += 4 * Math.sqrt(1 - Math.pow(intervalA, 2));
-
-        for (int i = 1; i < numOfRectanglesN; ++i) {
-            sum += 2 * (4 * Math.sqrt(1 - Math.pow(intervalA + ((double)i * deltaX), 2)));
-        }
-
-        sum += 4 * Math.sqrt(1 - Math.pow(intervalB, 2));
-
-        sum *= (deltaX * 0.5);
-        computationHistory.add(sum);
-        return sum;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Computes Simpson's rule Riemman sum and adds it to computationHistory
-    double computeSimpsonsRule() {
-
-        double sum = 0.0;
-        sum += 4 * Math.sqrt(1 - Math.pow(intervalA, 2));
-
-        for (int i = 1; i < numOfRectanglesN; ++i) {
-            if ((i % 2) != 0) {
-                sum += 4 * (4 * Math.sqrt(1 - Math.pow(intervalA + ((double) i * deltaX), 2)));
-            } else {
-                sum += 2 * (4 * Math.sqrt(1 - Math.pow(intervalA + ((double) i * deltaX), 2)));
-            }
-
-            if (Double.isNaN(sum)) {
-                throw new ArithmeticException("Interval leads to negative square root -- cannot compute.");
-            }
-        }
-
-        sum += 4 * Math.sqrt(1 - Math.pow(intervalB, 2));
-
-        sum *= (deltaX * (1.0 / 3.0));
         computationHistory.add(sum);
         return sum;
     }
