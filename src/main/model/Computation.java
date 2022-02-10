@@ -80,6 +80,7 @@ public class Computation {
                 statsArray.add("Riemman Sum Type: Midpoint Sum");
         }
 
+
         statsArray.add("Interval: [" + this.intervalA + ", " + this.intervalB + "]");
         statsArray.add("Number of rectangles: " + this.numOfRectanglesN);
         statsArray.add("Partition size: " + this.deltaX);

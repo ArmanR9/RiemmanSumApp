@@ -45,6 +45,18 @@ public class ComputationTest {
     }
 
     @Test
+    void testProduceStatsException(){
+            try {
+                testComputationINVALID.produceStats();
+                fail();
+            } catch (NullPointerException e) {
+                // do nothing
+            } catch (Exception e) {
+                fail();
+            }
+    }
+
+    @Test
     void testAdjustingN(){
         assertEquals(5, testComputationLEFT.getNumOfRectanglesN());
         assertEquals(10, testComputationMID.getNumOfRectanglesN());
@@ -66,7 +78,7 @@ public class ComputationTest {
         assertEquals(95.2, testComputationMID.getTimeToCompute());
     }
 
-    private void produceStatsTestHelper(Computation testComp, Computation.SumType sumType){
+    private void produceStatsTestHelper(Computation testComp, Computation.SumType sumType) {
         List<String> stats = testComp.produceStats();
 
         assertEquals("Computation number: " + testComp.getComputationNumber(), stats.get(0));
@@ -74,10 +86,12 @@ public class ComputationTest {
 
         if (sumType == Computation.SumType.LEFT) {
             assertEquals("Riemman Sum Type: Left Sum", stats.get(2));
-        } else if (sumType == Computation.SumType.RIGHT){
+        } else if (sumType == Computation.SumType.RIGHT) {
             assertEquals("Riemman Sum Type: Right Sum", stats.get(2));
-        } else if (sumType == Computation.SumType.MIDPOINT){
+        } else if (sumType == Computation.SumType.MIDPOINT) {
             assertEquals("Riemman Sum Type: Midpoint Sum", stats.get(2));
+        } else {
+            assertEquals("Riemman Sum Type: INVALID", stats.get(2));
         }
 
         assertEquals("Interval: [" + testComp.getIntervalA() + ", " + testComp.getIntervalB() + "]",
