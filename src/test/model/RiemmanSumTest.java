@@ -6,13 +6,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RiemmanSumTest {
-    RiemmanSum testSum;
+    RiemmanSum testSumSin;
+    RiemmanSum testSumLn;
+    RiemmanSum testSumLin;
     RiemmanSum invalidSum;
 
     @BeforeEach
     void runBefore(){
         // Function : 4 * sqrt(1 - x^2)
-        testSum = new RiemmanSum(0, 1, 5); // [0, 1] with 5 rectangles
+        testSumSin = new RiemmanSum(0, 1, 5); // [0, 1] with 5 rectangles
         invalidSum = new RiemmanSum(0.5, Math.PI, 3); // [0.5, pi] with 3 rectangles
     }
 
@@ -20,15 +22,15 @@ class RiemmanSumTest {
     @Test
     void testConstructor(){
         // testSum construction
-        assertEquals(0, testSum.getIntervalA());
-        assertEquals(1, testSum.getIntervalB());
-        assertEquals(5, testSum.getNumOfRectangles());
-        assertEquals(0, testSum.getComputationHistorySize());
+        assertEquals(0, testSumSin.getIntervalA());
+        assertEquals(1, testSumSin.getIntervalB());
+        assertEquals(5, testSumSin.getNumOfRectangles());
+        assertEquals(0, testSumSin.getComputationHistorySize());
 
-        double a = testSum.getIntervalA();
-        double b = testSum.getIntervalB();
-        int n = testSum.getNumOfRectangles();
-        assertEquals((b - a) / (double)n, testSum.getDeltaX());
+        double a = testSumSin.getIntervalA();
+        double b = testSumSin.getIntervalB();
+        int n = testSumSin.getNumOfRectangles();
+        assertEquals((b - a) / (double)n, testSumSin.getDeltaX());
 
         // invalidSum construction
         assertEquals(0.5, invalidSum.getIntervalA());
@@ -53,36 +55,36 @@ class RiemmanSumTest {
 
     @Test
     void testRightSum(){
-        assertEquals(0, testSum.getComputationHistorySize());
-        assertEquals(2.63704, testSum.computeRightSum(), 0.1);
-        assertEquals(1, testSum.getComputationHistorySize());
+        assertEquals(0, testSumSin.getComputationHistorySize());
+        assertEquals(2.63704, testSumSin.computeRightSum(), 0.1);
+        assertEquals(1, testSumSin.getComputationHistorySize());
     }
 
     @Test
     void testMidSum(){
-        assertEquals(0, testSum.getComputationHistorySize());
-        assertEquals(3.171987, testSum.computeMidSum(), 0.1);
-        assertEquals(1, testSum.getComputationHistorySize());
+        assertEquals(0, testSumSin.getComputationHistorySize());
+        assertEquals(3.171987, testSumSin.computeMidSum(), 0.1);
+        assertEquals(1, testSumSin.getComputationHistorySize());
     }
 
     @Test
     void testLeftSum(){
-        assertEquals(0, testSum.getComputationHistorySize());
-        assertEquals(3.43704, testSum.computeLeftSum(), 0.1);
-        assertEquals(1, testSum.getComputationHistorySize());
+        assertEquals(0, testSumSin.getComputationHistorySize());
+        assertEquals(3.43704, testSumSin.computeLeftSum(), 0.1);
+        assertEquals(1, testSumSin.getComputationHistorySize());
     }
 
     @Test
     void testAddingComputations(){
-        assertEquals(0, testSum.getComputationHistorySize());
+        assertEquals(0, testSumSin.getComputationHistorySize());
 
-        testSum.computeLeftSum();
-        assertEquals(1, testSum.getComputationHistorySize());
-        assertEquals(3.43704, testSum.getComputationHistory().get(0), 0.1);
+        testSumSin.computeLeftSum();
+        assertEquals(1, testSumSin.getComputationHistorySize());
+        assertEquals(3.43704, testSumSin.getComputationHistory().get(0), 0.1);
 
-        testSum.computeRightSum();
-        assertEquals(2, testSum.getComputationHistorySize());
-        assertEquals(2.63704, testSum.getComputationHistory().get(1), 0.1);
+        testSumSin.computeRightSum();
+        assertEquals(2, testSumSin.getComputationHistorySize());
+        assertEquals(2.63704, testSumSin.getComputationHistory().get(1), 0.1);
 
 
     }

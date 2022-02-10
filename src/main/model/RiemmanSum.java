@@ -7,9 +7,10 @@ import java.util.List;
 /*
 Riemman Sum class that encapsulates core
 approximation functionality such as computing left, right
-,and midpoint Riemman sums, in addition to storing history
+and midpoint Riemman sums, in addition to storing history
 of computations.
  */
+
 public class RiemmanSum {
     private List<Computation> computationStats;
     private List<Double> computationHistory;
@@ -86,6 +87,8 @@ public class RiemmanSum {
         computationHistory.add(sum);
         return sum;
     }
+
+    // add x to y function
 
     // EFFECTS: adjusts N values
     public void setNumOfRectanglesN(int n) {

@@ -11,7 +11,6 @@ import java.util.List;
  - A interval value
  - B interval value
  - Number of rectangles
-
  */
 public class Computation {
 
@@ -23,23 +22,25 @@ public class Computation {
 
     private int computationNumber;
     private SumType riemmanSumType;
-    private String computationFunction;
+    private MathFunction computationFunction;
     private double intervalB;
     private double intervalA;
     private int numOfRectanglesN;
     private double deltaX;
+    private double timeToCompute;
 
     // REFACTOR RIEMMAN SUM TO JUST HAVE A COMPUTATION FIELD TO HOUSE THIS DATA
 
     // EFFECTS: Constructs computation object with relevant fields
-    public Computation(int compNumber, String sumType, String function, double a, double b, int n) {
+    public Computation(int compNumber, String sumType, String funcType, String function, double a, double b, int n) {
         this.computationNumber = compNumber;
         this.riemmanSumType = parseSumType(sumType);
-        this.computationFunction = function;
+        this.computationFunction = new MathFunction(funcType, function);
         this.intervalA = a;
         this.intervalB = b;
         this.numOfRectanglesN = n;
         this.deltaX = (b - a) / n;
+        this.timeToCompute = 0.0;
     }
 
     // MODIFIES: this
@@ -64,7 +65,7 @@ public class Computation {
     public List<String> produceStats() {
         List<String> statsArray = new ArrayList<>();
         statsArray.add("Computation number: " + this.computationNumber);
-        statsArray.add("Function used: " + this.computationFunction);
+        statsArray.add("Function used: " + this.computationFunction.getFunction());
 
         switch (this.riemmanSumType) {
             case LEFT:
@@ -85,9 +86,16 @@ public class Computation {
 
     // REQUIRES: n > 0
     // MODIFIES: this
-    // EFFECTS: adjusts N values
+    // EFFECTS: adjusts the number of rectangles of current computation
     public void setNumOfRectanglesN(int n) {
         numOfRectanglesN = n;
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: Set time to make a computation to t
+    public void setTimeToCompute(double t) {
+        timeToCompute = t;
     }
 
     // getters
@@ -99,8 +107,16 @@ public class Computation {
         return riemmanSumType;
     }
 
+    public String getRiemmanSumTypeString() {
+        return riemmanSumType.name().toLowerCase();
+    }
+
     public String getComputationFunction() {
-        return computationFunction;
+        return computationFunction.getFunction();
+    }
+
+    public String getComputationFunctionType() {
+        return computationFunction.getFunctionType().name().toLowerCase();
     }
 
     public double getIntervalB() {
@@ -113,6 +129,14 @@ public class Computation {
 
     public int getNumOfRectanglesN() {
         return numOfRectanglesN;
+    }
+
+    public double getDeltaX() {
+        return deltaX;
+    }
+
+    public double getTimeToCompute() {
+        return timeToCompute;
     }
 
 
