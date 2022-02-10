@@ -32,8 +32,8 @@ public class Computation {
     // REFACTOR RIEMMAN SUM TO JUST HAVE A COMPUTATION FIELD TO HOUSE THIS DATA
 
     // EFFECTS: Constructs computation object with relevant fields
-    public Computation(int compNumber, String sumType, String funcType, String function, double a, double b, int n) {
-        this.computationNumber = compNumber;
+    public Computation(int compId, String sumType, String funcType, String function, double a, double b, int n) {
+        this.computationNumber = compId;
         this.riemmanSumType = parseSumType(sumType);
         this.computationFunction = new MathFunction(funcType, function);
         this.intervalA = a;

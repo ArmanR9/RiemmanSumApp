@@ -20,6 +20,8 @@ public class MathFunction {
     private int iterator;
 
 
+    // REQUIRES: Type to be either trigonometric, logarithmic, or linear and function has to abide by form
+    //           marked in README.md
     // EFFECTS: Constructs a math function with its type (trig, log, linear) and its unparsed, human-readable
     //          function input
     public MathFunction(String type, String unparsedFunction) {
@@ -50,26 +52,30 @@ public class MathFunction {
         return parsedFuncType;
     }
 
-    // REQUIRES: functionType != null
+    // REQUIRES: functionType != null & x is defined for given mathematical function
     // MODIFIES: this
     // EFFECTS: Calls appropriate mathematical function and returns its computation result for a given x.
-    double applyComputation(double x) {
+    public double applyComputation(double x) {
 
-        switch (functionType) {
-            case TRIGONOMETRIC:
-                return computeTrigFunc(x);
-            case LOGARITHMIC:
-                return computeLogFunc(x);
-            case LINEAR:
-                return computeLinearFunc(x);
+        if (functionType != null) {
+
+            switch (functionType) {
+                case TRIGONOMETRIC:
+                    return computeTrigFunc(x);
+                case LOGARITHMIC:
+                    return computeLogFunc(x);
+                case LINEAR:
+                    return computeLinearFunc(x);
+            }
         }
 
-        return Double.NaN; // Should be different exception instead, but this is temporary.
+        return Double.NaN;
     }
 
+    // REQUIRES: x is defined for given trigonometric function
     // MODIFIES: this
     // EFFECTS: Computes trigonometric function at the x value specified.
-    double computeTrigFunc(double x) {
+    private double computeTrigFunc(double x) {
         parseVertDisp();
         parseTrigFunc();
 
@@ -86,9 +92,10 @@ public class MathFunction {
     }
 
 
+    // REQUIRES: x is defined for given logarithmic function
     // MODIFIES: this
     // EFFECTS: Computes logarithmic function at the x value specified.
-    double computeLogFunc(double x) {
+    private double computeLogFunc(double x) {
         parseVertDisp();
         parseLogFunc();
 
@@ -103,7 +110,7 @@ public class MathFunction {
 
     // MODIFIES: this
     // EFFECTS: Computes linear function at the x value specified.
-    double computeLinearFunc(double x) {
+    private double computeLinearFunc(double x) {
         parseVertDisp();
 
         return verticalCoeff * x;
@@ -115,13 +122,30 @@ public class MathFunction {
     private void parseVertDisp() {
         StringBuilder vertDisp = new StringBuilder();
         int it = 0;
+        boolean isNegative = false;
+
+        if (unparsedFunction.charAt(0) == '-') {
+            isNegative = true;
+            ++it; // move iterator one character forward to avoid negative sign
+        }
 
         while (Character.isDigit(unparsedFunction.charAt(it))) {
             vertDisp.append(unparsedFunction.charAt(it));
             ++it;
         }
 
-        this.verticalCoeff = Double.parseDouble(vertDisp.toString().trim());
+        double coeff = 1.0;
+
+        if (vertDisp.length() != 0) {
+            coeff = Double.parseDouble(vertDisp.toString().trim());
+        }
+
+        if (isNegative) {
+            this.verticalCoeff = -1.0 * coeff;
+        } else {
+            this.verticalCoeff = coeff;
+        }
+
         this.iterator = it;
     }
 

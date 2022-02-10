@@ -17,22 +17,22 @@ public class ComputationTest {
 
     @BeforeEach
     void runBefore(){
-        testComputationLEFT = new Computation(0, "left", "trigonometric", "5sin(x)", 10, 3, 5);
-        testComputationRIGHT = new Computation(5, "right", "trig", "cos(x)", 0 , 2, 2);
-        testComputationMID = new Computation(2, "midpoint", "logarithmic" , "2ln(x)", 2, 5, 10);
-        testComputationINVALID = new Computation(2, "mid", "logarithmic" , "2ln(x)", 2, 5, 10);
+        testComputationLEFT = new Computation( 1,"left", "trigonometric", "5sin(x)", 10, 3, 5);
+        testComputationRIGHT = new Computation(2, "right", "trig", "cos(x)", 0 , 2, 2);
+        testComputationMID = new Computation(3, "midpoint", "logarithmic" , "2ln(x)", 2, 5, 10);
+        testComputationINVALID = new Computation(4, "mid", "logarithmic" , "2ln(x)", 2, 5, 10);
     }
 
     @Test
     void testConstructor(){
-        compConstructionTestHelper(testComputationLEFT, 0, Computation.SumType.LEFT,
+        compConstructionTestHelper(testComputationLEFT, 1, Computation.SumType.LEFT,
                 "trigonometric", "5sin(x)", 10, 3, 5);
-        compConstructionTestHelper(testComputationRIGHT, 5, Computation.SumType.RIGHT,
+        compConstructionTestHelper(testComputationRIGHT, 2, Computation.SumType.RIGHT,
                 "trigonometric", "cos(x)",  0, 2, 2);
-        compConstructionTestHelper(testComputationMID, 2, Computation.SumType.MIDPOINT,
+        compConstructionTestHelper(testComputationMID, 3, Computation.SumType.MIDPOINT,
                 "logarithmic", "2ln(x)", 2, 5, 10);
 
-        compConstructionTestHelper(testComputationINVALID, 2, null,
+        compConstructionTestHelper(testComputationINVALID, 4, null,
                 "logarithmic", "2ln(x)", 2, 5, 10);
 
     }
