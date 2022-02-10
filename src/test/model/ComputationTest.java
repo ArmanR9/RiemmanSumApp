@@ -13,12 +13,14 @@ public class ComputationTest {
     Computation testComputationLEFT;
     Computation testComputationRIGHT;
     Computation testComputationMID;
+    Computation testComputationINVALID;
 
     @BeforeEach
     void runBefore(){
         testComputationLEFT = new Computation(0, "left", "trigonometric", "5sin(x)", 10, 3, 5);
         testComputationRIGHT = new Computation(5, "right", "trig", "cos(x)", 0 , 2, 2);
-        testComputationMID = new Computation(2, "mid", "logarithmic" , "2ln(x)", 2, 5, 10);
+        testComputationMID = new Computation(2, "midpoint", "logarithmic" , "2ln(x)", 2, 5, 10);
+        testComputationINVALID = new Computation(2, "mid", "logarithmic" , "2ln(x)", 2, 5, 10);
     }
 
     @Test
@@ -29,6 +31,10 @@ public class ComputationTest {
                 "trigonometric", "cos(x)",  0, 2, 2);
         compConstructionTestHelper(testComputationMID, 2, Computation.SumType.MIDPOINT,
                 "logarithmic", "2ln(x)", 2, 5, 10);
+
+        compConstructionTestHelper(testComputationINVALID, 2, null,
+                "logarithmic", "2ln(x)", 2, 5, 10);
+
     }
 
     @Test
@@ -91,7 +97,10 @@ public class ComputationTest {
 
         assertEquals(compNum, testComp.getComputationNumber());
         assertEquals(sumType, testComp.getRiemmanSumType());
-        assertEquals(sumType.name().toLowerCase(), testComp.getRiemmanSumTypeString());
+
+        if(sumType != null) {
+            assertEquals(sumType.name().toLowerCase(), testComp.getRiemmanSumTypeString());
+        }
 
         assertEquals(funcType, testComp.getComputationFunctionType());
         assertEquals(function, testComp.getComputationFunction());

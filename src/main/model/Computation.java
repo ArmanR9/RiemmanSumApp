@@ -52,8 +52,10 @@ public class Computation {
             riemmanSumType = SumType.LEFT;
         } else if (type.contains("right")) {
             riemmanSumType = SumType.RIGHT;
-        } else if (type.contains("midpoint") || type.contains("mid")) {
+        } else if (type.contains("midpoint")) {
             riemmanSumType = SumType.MIDPOINT;
+        } else {
+            riemmanSumType = null;
         }
 
         return riemmanSumType;

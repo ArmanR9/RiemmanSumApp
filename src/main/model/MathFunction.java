@@ -115,7 +115,7 @@ public class MathFunction {
     private void parseVertDisp() {
         StringBuilder vertDisp = new StringBuilder();
         int it = 0;
-        
+
         while (Character.isDigit(unparsedFunction.charAt(it))) {
             vertDisp.append(unparsedFunction.charAt(it));
             ++it;

@@ -6,4 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MathFunctionTest {
+    MathFunction testFnTan;
+    MathFunction testFnLinear;
+    MathFunction testFnLog;
+    MathFunction testFnLn;
 }
