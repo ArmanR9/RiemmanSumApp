@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
-Riemman Sum class that encapsulates core
-approximation functionality such as computing left, right
-and midpoint Riemman sums, in addition to storing history
-of computations.
+    Riemman Sum class that encapsulates core
+    approximation functionality such as computing left, right
+    and midpoint Riemman sums, in addition to storing history
+    of computations.
  */
 
 public class RiemmanSum {

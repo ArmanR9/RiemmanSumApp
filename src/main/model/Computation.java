@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- Computation class that wraps all statistics about
- each Riemman Sum, including:
- - The Riemman Sum number
- - Riemman Sum type (left, right, mid)
- - A interval value
- - B interval value
- - Number of rectangles
+    Computation class that wraps all statistics about
+    each Riemman Sum, including:
+     - The Riemman Sum number
+     - Riemman Sum type (left, right, mid)
+     - Riemman Sum function
+     - A interval value
+     - B interval value
+    - Number of rectangles
  */
 public class Computation {
 
@@ -54,7 +55,7 @@ public class Computation {
             riemmanSumType = SumType.LEFT;
         } else if (type.contains("right")) {
             riemmanSumType = SumType.RIGHT;
-        } else if (type.contains("midpoint")) {
+        } else if (type.contains("mid")) {
             riemmanSumType = SumType.MIDPOINT;
         } else {
             riemmanSumType = null;
@@ -64,6 +65,7 @@ public class Computation {
     }
 
 
+    // REQUIRES: riemmanSumType != null
     // EFFECTS: Wraps Sum's statistics (including its interval, function, partition size, etc.)
     //          in a list of strings
     public List<String> produceStats() {

@@ -9,6 +9,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    JUnit testing class for all functionality
+    housed in the Computation class
+ */
 public class ComputationTest {
     Computation testComputationLEFT;
     Computation testComputationRIGHT;
@@ -20,7 +24,7 @@ public class ComputationTest {
         testComputationLEFT = new Computation( 1,"left", "trigonometric", "5sin(x)", 10, 3, 5);
         testComputationRIGHT = new Computation(2, "right", "trig", "cos(x)", 0 , 2, 2);
         testComputationMID = new Computation(3, "midpoint", "logarithmic" , "2ln(x)", 2, 5, 10);
-        testComputationINVALID = new Computation(4, "mid", "logarithmic" , "2ln(x)", 2, 5, 10);
+        testComputationINVALID = new Computation(4, "miidpoint", "logarithmic" , "2ln(x)", 2, 5, 10);
     }
 
     @Test
@@ -42,18 +46,6 @@ public class ComputationTest {
         produceStatsTestHelper(testComputationLEFT, Computation.SumType.LEFT);
         produceStatsTestHelper(testComputationMID, Computation.SumType.MIDPOINT);
         produceStatsTestHelper(testComputationRIGHT, Computation.SumType.RIGHT);
-    }
-
-    @Test
-    void testProduceStatsException(){
-            try {
-                testComputationINVALID.produceStats();
-                fail();
-            } catch (NullPointerException e) {
-                // do nothing
-            } catch (Exception e) {
-                fail();
-            }
     }
 
     @Test

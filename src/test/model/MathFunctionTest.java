@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    JUnit testing class for all functionality
+    housed in the MathFunction class
+ */
 public class MathFunctionTest {
     MathFunction testFnTan;
     MathFunction testFnSin;

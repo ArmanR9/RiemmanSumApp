@@ -1,9 +1,9 @@
 package model;
 
 /*
- Function parser that takes in a mathematical function and type, and parses it
- to find its displacement and coefficient factors and then compute its result at a
- given x.
+    Function parser that takes in a mathematical function and type, and parses it
+    to find its displacement and coefficient factors and then compute its result at a
+    given x.
  */
 public class MathFunction {
     enum FuncType {
@@ -52,7 +52,7 @@ public class MathFunction {
         return parsedFuncType;
     }
 
-    // REQUIRES: functionType != null & x is defined for given mathematical function
+    // REQUIRES: functionType != null
     // MODIFIES: this
     // EFFECTS: Calls appropriate mathematical function and returns its computation result for a given x.
     public double applyComputation(double x) {
@@ -70,7 +70,6 @@ public class MathFunction {
         }
     }
 
-    // REQUIRES: x is defined for given trigonometric function
     // MODIFIES: this
     // EFFECTS: Computes trigonometric function at the x value specified.
     private double computeTrigFunc(double x) {
@@ -90,20 +89,17 @@ public class MathFunction {
     }
 
 
-    // REQUIRES: x is defined for given logarithmic function
     // MODIFIES: this
     // EFFECTS: Computes logarithmic function at the x value specified.
     private double computeLogFunc(double x) {
         parseVertDisp();
         parseLogFunc();
 
-
         if ("log".equals(functionName)) {
             return verticalCoeff * Math.log10(x);
+        } else {
+            return verticalCoeff * Math.log(x); // ln(x)
         }
-        // "ln"
-        return verticalCoeff * Math.log(x);
-
     }
 
     // MODIFIES: this
@@ -146,8 +142,6 @@ public class MathFunction {
 
         this.iterator = it;
     }
-
-    //TODO: Rest of the coefficient and displacement markers will be implemented later
 
     // MODIFIES: this
     // EFFECTS: Iterates through the input function string for its trigonometric function and sets it to

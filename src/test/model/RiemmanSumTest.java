@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+    JUnit testing class for all functionality
+    housed in the RiemmanSum class
+ */
 class RiemmanSumTest {
     RiemmanSum testSumSin;
     RiemmanSum testSumLog;
@@ -25,35 +29,24 @@ class RiemmanSumTest {
 
         invalidSum = new RiemmanSum("left", "logarithmic",
                 "-2ln(x)", -1, -5, 3);
-    }
 
+    }
 
     @Test
     void testConstructor(){
-        assertEquals(-1.0, testSumSin.getIntervalA());
-        assertEquals(3.0, testSumSin.getIntervalB());
-        assertEquals(10, testSumSin.getNumOfRectangles());
-        assertEquals(0, testSumSin.getComputationHistorySize());
-        assertEquals((3.0 - (-1.0)) / 10.0, testSumSin.getDeltaX(), 0.001);
+        // SinSum construction
+        constructionTestHelper(testSumSin, -1, 3, 10, "13sin(x)");
 
-        assertEquals(5, testSumLog.getIntervalA());
-        assertEquals(12, testSumLog.getIntervalB());
-        assertEquals(6, testSumLog.getNumOfRectangles());
-        assertEquals(0, testSumLog.getComputationHistorySize());
-        assertEquals((12 - 5) / 6.0, testSumLog.getDeltaX(), 0.001);
+        // LogSum construction
+        constructionTestHelper(testSumLog, 5, 12, 6, "2log(x)");
 
-        assertEquals(1.0, testSumLin.getIntervalA());
-        assertEquals(3.0, testSumLin.getIntervalB());
-        assertEquals(12, testSumLin.getNumOfRectangles());
-        assertEquals(0, testSumLin.getComputationHistorySize());
-        assertEquals((3.0 - 1.0) / 12.0, testSumLin.getDeltaX(), 0.001);
+        // LinearSum construction
+        constructionTestHelper(testSumLin, 1.0, 3.0, 12, "-99x");
 
-        assertEquals(-1, invalidSum.getIntervalA());
-        assertEquals(-5, invalidSum.getIntervalB(), 0.1);
-        assertEquals(3, invalidSum.getNumOfRectangles());
-        assertEquals(0, invalidSum.getComputationHistorySize());
-        assertEquals((-5 - (-1)) / 3.0, invalidSum.getDeltaX(), 0.001);
+        // InvalidSum construction
+        constructionTestHelper(invalidSum, -1, -5, 3, "-2ln(x)");
     }
+
 
     @Test
     void testGetFunction(){
@@ -92,6 +85,20 @@ class RiemmanSumTest {
 
     @Test
     void testAddingNewSums(){
+        assertEquals(5, testSumLog.getIntervalA());
+        assertEquals(12, testSumLog.getIntervalB());
+        assertEquals(6, testSumLog.getNumOfRectangles());
+        assertEquals(0, testSumLog.getComputationHistorySize());
+        assertEquals((12 - 5) / 6.0, testSumLog.getDeltaX(), 0.01);
+        assertEquals("2log(x)", testSumLog.getFunction());
+
+        testSumLog.addNewRiemmanSum("midpoint", "linear", "5x", 1, 2, 3);
+        assertEquals(1, testSumLog.getIntervalA());
+        assertEquals(2, testSumLog.getIntervalB());
+        assertEquals(3, testSumLog.getNumOfRectangles());
+        assertEquals(0, testSumLog.getComputationHistorySize());
+        assertEquals((2 - 1) / 3.0, testSumLog.getDeltaX(), 0.01);
+        assertEquals("5x", testSumLog.getFunction());
 
     }
 
@@ -109,6 +116,9 @@ class RiemmanSumTest {
         assertEquals(-198, testSumLin.recomputeAdjustedSum(1, "left"), 0.01);
         assertEquals(1, testSumLin.getComputationHistorySize());
 
+        assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.01);
+        assertEquals(19.899, testSumSin.recomputeAdjustedSum(50, "midpoint"), 0.01);
+
     }
 
     @Test
@@ -117,13 +127,21 @@ class RiemmanSumTest {
 
         testSumSin.computeRiemmanSum();
         assertEquals(1, testSumSin.getComputationHistorySize());
-        assertEquals(17.07, testSumSin.getComputationHistory().get(0).getComputationResult(), 0.1);
+        assertEquals(17.07, testSumSin.getComputationHistory().get(0).getComputationResult(), 0.01);
 
         testSumSin.recomputeAdjustedSum(90, "right");
         assertEquals(2, testSumSin.getComputationHistorySize());
-        assertEquals(20.1744, testSumSin.getComputationHistory().get(1).getComputationResult(), 0.1);
+        assertEquals(20.1744, testSumSin.getComputationHistory().get(1).getComputationResult(), 0.01);
 
     }
 
+    private void constructionTestHelper(RiemmanSum testObj, double a, double b, int n, String func) {
+        assertEquals(a, testObj.getIntervalA());
+        assertEquals(b, testObj.getIntervalB());
+        assertEquals(n, testObj.getNumOfRectangles());
+        assertEquals(0, testObj.getComputationHistorySize());
+        assertEquals(func, testObj.getFunction());
+        assertEquals((b - a) / (double)n, testObj.getDeltaX(), 0.01);
+    }
 
 }
