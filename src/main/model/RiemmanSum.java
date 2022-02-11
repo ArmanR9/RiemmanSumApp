@@ -24,7 +24,7 @@ public class RiemmanSum {
     // EFFECTS: Constructs Riemman Sum with user-inputted partition and n values.
     public RiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction, double a, double b, int n) {
         this.computationHistory = new ArrayList<>();
-        this.currentComputation = new Computation(++compId, riemmanSumType, mathFuncType, mathFunction, a, b, n);
+        this.currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);
         this.currentFunction = new MathFunction(mathFuncType, mathFunction);
     }
 
@@ -40,6 +40,26 @@ public class RiemmanSum {
         }
     }
 
+    // REQUIRES: riemmanSumType is one of LEFT, RIGHT, OR MIDPOINT,
+    //           mathFuncType is one of TRIGONOMETRIC, LOGARITHMIC, LINEAR,
+    //           mathFunction abides by the constraints outlined in the README.md
+    //           n > 0
+    // MODIFIES: this
+    // EFFECTS: Creates new computation and MathFunction objects to do new riemman sum computations
+    public void addNewRiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction,
+                                 double a, double b, int n) {
+        currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);
+        this.currentFunction = new MathFunction(mathFuncType, mathFunction);
+    }
+
+    // REQUIRES: n > 0
+    // MODIFIES: this
+    public double recomputeAdjustedSum(int n, String newSumType) {
+        addNewRiemmanSum(newSumType, currentComputation.getComputationFunctionType(),
+                currentFunction.getFunction(), getIntervalA(), getIntervalB(), n);
+        return computeRiemmanSum();
+    }
+
     // MODIFIES: this
     // EFFECTS: Computes the result of a mathematical function computation for a given x.
     private double computeFunctionAtX(double x) {
@@ -48,7 +68,7 @@ public class RiemmanSum {
 
     // MODIFIES: this
     // EFFECTS: Computes right Riemman sum and adds it to computationHistory
-    public double computeRightSum() {
+    private double computeRightSum() {
         double a = currentComputation.getIntervalA();
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
@@ -66,7 +86,7 @@ public class RiemmanSum {
 
     // MODIFIES: this
     // EFFECTS: Computes left Riemman sum and adds it to computationHistory
-    public double computeLeftSum() {
+    private double computeLeftSum() {
         double a = currentComputation.getIntervalA();
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
@@ -85,7 +105,7 @@ public class RiemmanSum {
 
     // MODIFIES: this
     // EFFECTS: Computes mid Riemman sum and adds it to computationHistory
-    public double computeMidSum() {
+    private double computeMidSum() {
         double a = currentComputation.getIntervalA();
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
@@ -99,26 +119,6 @@ public class RiemmanSum {
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
         return sum;
-    }
-
-    // REQUIRES: riemmanSumType is one of LEFT, RIGHT, OR MIDPOINT,
-    //           mathFuncType is one of TRIGONOMETRIC, LOGARITHMIC, LINEAR,
-    //           mathFunction abides by the constraints outlined in the README.md
-    //           n > 0
-    // MODIFIES: this
-    // EFFECTS: Creates new computation and MathFunction objects to do new riemman sum computations
-    public void addNewRiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction,
-                                 double a, double b, int n) {
-        currentComputation = new Computation(++compId, riemmanSumType, mathFuncType, mathFunction, a, b, n);
-        this.currentFunction = new MathFunction(mathFuncType, mathFunction);
-    }
-
-    // REQUIRES: n > 0
-    // MODIFIES: this
-    public double recomputeAdjustedSum(int n, String newSumType) {
-        currentComputation.setNumOfRectanglesN(n);
-        currentComputation.setRiemmanSumType(newSumType);
-        return computeRiemmanSum();
     }
 
     // getters

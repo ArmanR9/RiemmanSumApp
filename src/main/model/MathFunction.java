@@ -58,18 +58,16 @@ public class MathFunction {
     public double applyComputation(double x) {
 
         if (functionType != null) {
-
-            switch (functionType) {
-                case TRIGONOMETRIC:
-                    return computeTrigFunc(x);
-                case LOGARITHMIC:
-                    return computeLogFunc(x);
-                case LINEAR:
-                    return computeLinearFunc(x);
+            if (functionType.equals(FuncType.TRIGONOMETRIC)) {
+                return computeTrigFunc(x);
+            } else if (functionType.equals(FuncType.LOGARITHMIC)) {
+                return computeLogFunc(x);
+            } else {
+                return computeLinearFunc(x);
             }
+        } else {
+            return Double.NaN;
         }
-
-        return Double.NaN;
     }
 
     // REQUIRES: x is defined for given trigonometric function

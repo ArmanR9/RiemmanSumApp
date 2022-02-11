@@ -71,17 +71,13 @@ public class Computation {
         statsArray.add("Computation number: " + this.computationNumber);
         statsArray.add("Function used: " + this.computationFunction.getFunction());
 
-        switch (this.riemmanSumType) {
-            case LEFT:
-                statsArray.add("Riemman Sum Type: Left Sum");
-                break;
-            case RIGHT:
-                statsArray.add("Riemman Sum Type: Right Sum");
-                break;
-            case MIDPOINT:
+        if (riemmanSumType.equals(SumType.LEFT)) {
+            statsArray.add("Riemman Sum Type: Left Sum");
+        } else if (riemmanSumType.equals(SumType.RIGHT)) {
+            statsArray.add("Riemman Sum Type: Right Sum");
+        } else {
                 statsArray.add("Riemman Sum Type: Midpoint Sum");
         }
-
 
         statsArray.add("Interval: [" + this.intervalA + ", " + this.intervalB + "]");
         statsArray.add("Number of rectangles: " + this.numOfRectanglesN);
