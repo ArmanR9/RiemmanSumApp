@@ -23,25 +23,27 @@ public class Computation {
     private int computationNumber;
     private SumType riemmanSumType;
     private MathFunction computationFunction;
+    private double computationResult;
     private double intervalB;
     private double intervalA;
     private int numOfRectanglesN;
     private double deltaX;
     private double timeToCompute;
 
-    // REFACTOR RIEMMAN SUM TO JUST HAVE A COMPUTATION FIELD TO HOUSE THIS DATA
 
     // EFFECTS: Constructs computation object with relevant fields
     public Computation(int compId, String sumType, String funcType, String function, double a, double b, int n) {
         this.computationNumber = compId;
         this.riemmanSumType = parseSumType(sumType);
         this.computationFunction = new MathFunction(funcType, function);
+        this.computationResult = 0.0;
         this.intervalA = a;
         this.intervalB = b;
         this.numOfRectanglesN = n;
         this.deltaX = (b - a) / n;
         this.timeToCompute = 0.0;
     }
+
 
     // MODIFIES: this
     // EFFECTS: Parses string and converts it into correct sum type (left, right, or midpoint)
@@ -87,13 +89,24 @@ public class Computation {
         return statsArray;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets this.computationResult to res
+    public void setComputationResult(double res) {
+        this.computationResult = res;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets this.riemmanSumType to newType
+    public void setRiemmanSumType(String newType) {
+        this.riemmanSumType = parseSumType(newType);
+    }
+
     // REQUIRES: n > 0
     // MODIFIES: this
     // EFFECTS: adjusts the number of rectangles of current computation
     public void setNumOfRectanglesN(int n) {
         numOfRectanglesN = n;
     }
-
 
     // MODIFIES: this
     // EFFECTS: Set time to make a computation to t
@@ -108,6 +121,10 @@ public class Computation {
 
     public SumType getRiemmanSumType() {
         return riemmanSumType;
+    }
+
+    public double getComputationResult() {
+        return computationResult;
     }
 
     public String getRiemmanSumTypeString() {

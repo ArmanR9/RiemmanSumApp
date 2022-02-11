@@ -76,4 +76,5 @@ public class MathFunctionTest {
         assertTrue(Double.isNaN(testFnINVALID.applyComputation(5.0)));
         assertTrue(Double.isNaN(testFnINVALID2.applyComputation(2.2)));
     }
+
 }

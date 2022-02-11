@@ -72,10 +72,24 @@ public class ComputationTest {
     }
 
     @Test
+    void testSetComputationResult(){
+        assertEquals(0.0, testComputationRIGHT.getComputationResult());
+        testComputationRIGHT.setComputationResult(5.2);
+        assertEquals(5.2, testComputationRIGHT.getComputationResult());
+    }
+
+    @Test
     void testSettingComputingTime(){
         assertEquals(0.0, testComputationMID.getTimeToCompute());
         testComputationMID.setTimeToCompute(95.2);
         assertEquals(95.2, testComputationMID.getTimeToCompute());
+    }
+
+    @Test
+    void testSettingNewSumType(){
+        assertEquals("right", testComputationRIGHT.getRiemmanSumTypeString());
+        testComputationRIGHT.setRiemmanSumType("left");
+        assertEquals("left", testComputationRIGHT.getRiemmanSumTypeString());
     }
 
     private void produceStatsTestHelper(Computation testComp, Computation.SumType sumType) {
@@ -118,5 +132,6 @@ public class ComputationTest {
 
         assertEquals(funcType, testComp.getComputationFunctionType());
         assertEquals(function, testComp.getComputationFunction());
+        assertEquals(0.0, testComp.getComputationResult());
     }
 }

@@ -12,114 +12,142 @@ of computations.
  */
 
 public class RiemmanSum {
-    private List<Computation> computationStats;
-    private List<Double> computationHistory;
-    private double intervalB;
-    private double intervalA;
-    private int numOfRectanglesN;
-    private double deltaX;
-    // Test function: 4 * sqrt(1 - x^2)
+    private static int compId = 1;
+    private List<Computation> computationHistory;
+    private Computation currentComputation;
+    private MathFunction currentFunction;
 
+    // REQUIRES: riemmanSumType is one of LEFT, RIGHT, OR MIDPOINT,
+    //           mathFuncType is one of TRIGONOMETRIC, LOGARITHMIC, LINEAR,
+    //           mathFunction abides by the constraints outlined in the README.md
+    //           n > 0
     // EFFECTS: Constructs Riemman Sum with user-inputted partition and n values.
-    public RiemmanSum(double a, double b, int n) {
+    public RiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction, double a, double b, int n) {
         this.computationHistory = new ArrayList<>();
-        this.numOfRectanglesN = n;
-        this.intervalB = b;
-        this.intervalA = a;
-        this.deltaX = (b - a) / n;
+        this.currentComputation = new Computation(++compId, riemmanSumType, mathFuncType, mathFunction, a, b, n);
+        this.currentFunction = new MathFunction(mathFuncType, mathFunction);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Compute the Riemman Sum result for given riemman sum type (left, right, or mid)
+    public double computeRiemmanSum() {
+        if (currentComputation.getRiemmanSumTypeString().equals("left")) {
+            return computeLeftSum();
+        } else if (currentComputation.getRiemmanSumTypeString().equals("right")) {
+            return computeRightSum();
+        } else {
+            return computeMidSum();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Computes the result of a mathematical function computation for a given x.
+    private double computeFunctionAtX(double x) {
+        return currentFunction.applyComputation(x);
+    }
 
     // MODIFIES: this
     // EFFECTS: Computes right Riemman sum and adds it to computationHistory
     public double computeRightSum() {
-
+        double a = currentComputation.getIntervalA();
+        double dx = currentComputation.getDeltaX();
+        int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
 
-        for (int i = 1; i <= numOfRectanglesN; ++i) {
-            sum += 4 * Math.sqrt(1 - Math.pow(intervalA + ((double)i * deltaX), 2));
-
-            if (Double.isNaN(sum)) {
-                throw new ArithmeticException("Interval leads to negative square root -- cannot compute.");
-            }
+        for (int i = 1; i <= n; ++i) {
+            sum += this.computeFunctionAtX(a + ((double)i * dx));
         }
 
-        sum *= deltaX;
-        computationHistory.add(sum);
+        sum *= dx;
+        currentComputation.setComputationResult(sum);
+        computationHistory.add(currentComputation);
         return sum;
     }
 
     // MODIFIES: this
     // EFFECTS: Computes left Riemman sum and adds it to computationHistory
-    public double computeLeftSum() throws ArithmeticException {
-
+    public double computeLeftSum() {
+        double a = currentComputation.getIntervalA();
+        double dx = currentComputation.getDeltaX();
+        int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
 
-        for (int i = 1; i <= numOfRectanglesN; ++i) {
-            sum += 4 * Math.sqrt(1 - Math.pow(intervalA + ((double) (i - 1) * deltaX), 2));
-
-            if (Double.isNaN(sum)) {
-                throw new ArithmeticException("Interval leads to negative square root -- cannot compute.");
-            }
-
+        for (int i = 1; i <= n; ++i) {
+            sum += this.computeFunctionAtX(a + ((double)(i - 1) * dx));
         }
 
-        sum *= deltaX;
-        computationHistory.add(sum);
+        sum *= dx;
+
+        currentComputation.setComputationResult(sum);
+        computationHistory.add(currentComputation);
         return sum;
     }
 
     // MODIFIES: this
     // EFFECTS: Computes mid Riemman sum and adds it to computationHistory
     public double computeMidSum() {
-
+        double a = currentComputation.getIntervalA();
+        double dx = currentComputation.getDeltaX();
+        int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
 
-        for (int i = 1; i <= numOfRectanglesN; ++i) {
-            sum += 4 * Math.sqrt(1 - Math.pow(intervalA + ((double)i - 0.5) * deltaX, 2));
-
-            if (Double.isNaN(sum)) {
-                throw new ArithmeticException("Interval leads to negative square root -- cannot compute.");
-            }
+        for (int i = 1; i <= n; ++i) {
+            sum += this.computeFunctionAtX(a + ((double)(i - 0.5) * dx));
         }
 
-        sum *= deltaX;
-        computationHistory.add(sum);
+        sum *= dx;
+        currentComputation.setComputationResult(sum);
+        computationHistory.add(currentComputation);
         return sum;
     }
 
-    // add x to y function
-
-    // EFFECTS: adjusts N values
-    public void setNumOfRectanglesN(int n) {
-        numOfRectanglesN = n;
+    // REQUIRES: riemmanSumType is one of LEFT, RIGHT, OR MIDPOINT,
+    //           mathFuncType is one of TRIGONOMETRIC, LOGARITHMIC, LINEAR,
+    //           mathFunction abides by the constraints outlined in the README.md
+    //           n > 0
+    // MODIFIES: this
+    // EFFECTS: Creates new computation and MathFunction objects to do new riemman sum computations
+    public void addNewRiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction,
+                                 double a, double b, int n) {
+        currentComputation = new Computation(++compId, riemmanSumType, mathFuncType, mathFunction, a, b, n);
+        this.currentFunction = new MathFunction(mathFuncType, mathFunction);
     }
 
+    // REQUIRES: n > 0
+    // MODIFIES: this
+    public double recomputeAdjustedSum(int n, String newSumType) {
+        currentComputation.setNumOfRectanglesN(n);
+        currentComputation.setRiemmanSumType(newSumType);
+        return computeRiemmanSum();
+    }
 
     // getters
+    public String getFunction() {
+        return currentComputation.getComputationFunction();
+    }
+
     public double getIntervalB() {
-        return intervalB;
+        return currentComputation.getIntervalB();
     }
 
     public double getIntervalA() {
-        return intervalA;
+        return currentComputation.getIntervalA();
     }
 
     public int getNumOfRectangles() {
-        return numOfRectanglesN;
+        return currentComputation.getNumOfRectanglesN();
     }
 
     public double getDeltaX() {
-        return deltaX;
+        return currentComputation.getDeltaX();
     }
 
-    public List<Double> getComputationHistory() {
+    public List<Computation> getComputationHistory() {
         return computationHistory;
     }
 
     public int getComputationHistorySize() {
         return computationHistory.size();
     }
-
 
 }
