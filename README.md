@@ -18,7 +18,7 @@ Currently the Riemman Sum Calculator can only compute functions of the type
 These functions are also limited to having just their vertical
 scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants. The vertical scaling factor must also be an integer.
 
-**Side note:** for large values of "n", precision errors can arise due to floating point imprecision
+**Side note:** for very large values of "n" (100+), precision errors can arise due to floating point imprecision
 
 
 
