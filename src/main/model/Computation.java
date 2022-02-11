@@ -76,7 +76,7 @@ public class Computation {
         } else if (riemmanSumType.equals(SumType.RIGHT)) {
             statsArray.add("Riemman Sum Type: Right Sum");
         } else {
-                statsArray.add("Riemman Sum Type: Midpoint Sum");
+            statsArray.add("Riemman Sum Type: Midpoint Sum");
         }
 
         statsArray.add("Interval: [" + this.intervalA + ", " + this.intervalB + "]");
