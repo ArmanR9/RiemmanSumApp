@@ -71,13 +71,6 @@ public class ComputationTest {
     }
 
     @Test
-    void testSettingComputingTime(){
-        assertEquals(0.0, testComputationMID.getTimeToCompute());
-        testComputationMID.setTimeToCompute(95.2);
-        assertEquals(95.2, testComputationMID.getTimeToCompute());
-    }
-
-    @Test
     void testSettingNewSumType(){
         assertEquals("right", testComputationRIGHT.getRiemmanSumTypeString());
         testComputationRIGHT.setRiemmanSumType("left");

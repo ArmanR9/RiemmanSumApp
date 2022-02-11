@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -10,9 +9,8 @@ import java.util.List;
     and midpoint Riemman sums, in addition to storing history
     of computations.
  */
-
 public class RiemmanSum {
-    private static int compId = 1;
+    private int compId = 1;
     private List<Computation> computationHistory;
     private Computation currentComputation;
     private MathFunction currentFunction;
@@ -45,7 +43,7 @@ public class RiemmanSum {
     //           mathFunction abides by the constraints outlined in the README.md
     //           n > 0
     // MODIFIES: this
-    // EFFECTS: Creates new computation and MathFunction objects to do new riemman sum computations
+    // EFFECTS: Creates new Computation and MathFunction objects to do a new Riemman Sum computation
     public void addNewRiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction,
                                  double a, double b, int n) {
         currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);
@@ -54,9 +52,10 @@ public class RiemmanSum {
 
     // REQUIRES: n > 0
     // MODIFIES: this
-    public double recomputeAdjustedSum(int n, String newSumType) {
+    // EFFECTS: Adjusts only the N and Riemman Sum Type fields and recomputes the Riemman Sum
+    public double recomputeAdjustedSum(int newN, String newSumType) {
         addNewRiemmanSum(newSumType, currentComputation.getComputationFunctionType(),
-                currentFunction.getFunction(), getIntervalA(), getIntervalB(), n);
+                currentFunction.getFunction(), getIntervalA(), getIntervalB(), newN);
         return computeRiemmanSum();
     }
 
@@ -112,7 +111,7 @@ public class RiemmanSum {
         double sum = 0.0;
 
         for (int i = 1; i <= n; ++i) {
-            sum += this.computeFunctionAtX(a + ((double)(i - 0.5) * dx));
+            sum += this.computeFunctionAtX(a + ((double)(i - 0.5f) * dx));
         }
 
         sum *= dx;

@@ -1,9 +1,8 @@
 package model;
 
 /*
-    Function parser that takes in a mathematical function and type, and parses it
-    to find its displacement and coefficient factors and then compute its result at a
-    given x.
+    Function parser that takes in a mathematical function and type, and provides
+    a utility for computing such function at a given x value.
  */
 public class MathFunction {
     enum FuncType {
@@ -22,7 +21,7 @@ public class MathFunction {
 
     // REQUIRES: Type to be either trigonometric, logarithmic, or linear and function has to abide by form
     //           marked in README.md
-    // EFFECTS: Constructs a math function with its type (trig, log, linear) and its unparsed, human-readable
+    // EFFECTS: Constructs a math function with the function type (trig, log, linear) and its unparsed, human-readable
     //          function input
     public MathFunction(String type, String unparsedFunction) {
         this.functionType = parseFnType(type.trim());
@@ -52,7 +51,6 @@ public class MathFunction {
         return parsedFuncType;
     }
 
-    // REQUIRES: functionType != null
     // MODIFIES: this
     // EFFECTS: Calls appropriate mathematical function and returns its computation result for a given x.
     public double applyComputation(double x) {
@@ -183,7 +181,6 @@ public class MathFunction {
 
         this.iterator = i;
     }
-
 
     // getters
     public FuncType getFunctionType() {

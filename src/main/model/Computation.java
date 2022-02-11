@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-    Computation class that wraps all statistics about
+    Computation class that houses all statistics about
     each Riemman Sum, including:
      - The Riemman Sum number
      - Riemman Sum type (left, right, mid)
      - Riemman Sum function
      - A interval value
      - B interval value
-    - Number of rectangles
+     - Number of rectangles
  */
 public class Computation {
 
@@ -29,10 +29,9 @@ public class Computation {
     private double intervalA;
     private int numOfRectanglesN;
     private double deltaX;
-    private double timeToCompute;
 
 
-    // EFFECTS: Constructs computation object with relevant fields
+    // EFFECTS: Constructs computation object with relevant data about the Riemman Sum
     public Computation(int compId, String sumType, String funcType, String function, double a, double b, int n) {
         this.computationNumber = compId;
         this.riemmanSumType = parseSumType(sumType);
@@ -42,7 +41,6 @@ public class Computation {
         this.intervalB = b;
         this.numOfRectanglesN = n;
         this.deltaX = (b - a) / n;
-        this.timeToCompute = 0.0;
     }
 
 
@@ -67,7 +65,7 @@ public class Computation {
 
     // REQUIRES: riemmanSumType != null
     // EFFECTS: Wraps Sum's statistics (including its interval, function, partition size, etc.)
-    //          in a list of strings
+    //          into a list of strings
     public List<String> produceStats() {
         List<String> statsArray = new ArrayList<>();
         statsArray.add("Computation number: " + this.computationNumber);
@@ -104,12 +102,6 @@ public class Computation {
     // EFFECTS: adjusts the number of rectangles of current computation
     public void setNumOfRectanglesN(int n) {
         numOfRectanglesN = n;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Set time to make a computation to t
-    public void setTimeToCompute(double t) {
-        timeToCompute = t;
     }
 
     // getters
@@ -153,9 +145,6 @@ public class Computation {
         return deltaX;
     }
 
-    public double getTimeToCompute() {
-        return timeToCompute;
-    }
 
 
 }

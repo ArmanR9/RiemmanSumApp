@@ -9,7 +9,13 @@ import java.util.Scanner;
     RiemmanSumApp houses all UI handling functionality including
     asking user for input, then pinging the RiemmanSum class for data
     about each RiemmanSum calculation to output onto standard io.
+
+    NOTE:
+    Part of the RiemmanSumApp constructor, runConsoleLoop(), displayCommandMenu(), and
+    commandHandler borrow code from the CPSC 210 TellerApp found at
+    https://github.students.cs.ubc.ca/CPSC210/TellerApp
  */
+
 public class RiemmanSumApp {
     private RiemmanSum riSum;
     private Scanner consoleInput;
@@ -22,7 +28,7 @@ public class RiemmanSumApp {
     private String sumType;
     private double currentResult;
 
-    // EFFECTS: constructs Riemman sum application and initializes UI
+    // EFFECTS: constructs Riemman Sum Application and initializes UI elements
     public RiemmanSumApp() {
         consoleInput = new Scanner(System.in);
         consoleInput.useDelimiter("\n");
@@ -38,9 +44,9 @@ public class RiemmanSumApp {
         runConsoleLoop();
     }
 
+    // MODIFIES: this
     // EFFECTS: Receives user's input on necessary function and partition values for sum
-    private void runConsoleLoop() { // Code is taken from TellerApp
-        // setup
+    private void runConsoleLoop() {
         printWelcomeScreen();
         inputNewRiemmanSum();
         riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
@@ -63,6 +69,8 @@ public class RiemmanSumApp {
         System.out.println("Exiting application...");
     }
 
+    // MODIFIES: this
+    // EFFECTS: Parses user-inputted commands to direct the program to the appropriate function/task
     private void commandHandler(String nextInput) {
 
         if (nextInput.equals("h")) {
@@ -76,6 +84,9 @@ public class RiemmanSumApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Takes in new "n" and "Riemman Sum Type" values to compute a new sum,
+    //          and compare it with the old result
     private void recomputeAdjustedRiemmanSum() {
         System.out.println("Input your new \"n\" value: ");
         int newValueN = Integer.parseInt(askForInput());
@@ -84,19 +95,20 @@ public class RiemmanSumApp {
         String newSumType = askForInput().toLowerCase();
 
         System.out.println("Old \"n\" value: " + numOfRectsN + ", Sum type: "
-                + sumType + ", and Result:" + currentResult);
+                + sumType + ", and Result: " + currentResult);
 
-        double newResult = riSum.recomputeAdjustedSum(numOfRectsN, sumType);
+        riSum.recomputeAdjustedSum(newValueN, newSumType);
+        double newResult = riSum.computeRiemmanSum();
 
         System.out.println("New \"n\" value: " + newValueN + ", Sum type: "
-                + newSumType + ", and Result:" + newResult);
+                + newSumType + ", and Result: " + newResult);
 
         numOfRectsN = newValueN;
         sumType = newSumType;
         currentResult = newResult;
     }
 
-
+    // EFFECTS: Prints welcome instructions to the console
     private void printWelcomeScreen() {
         System.out.println("Hello, welcome to the Riemman Sum calculator!");
         System.out.println("This calculator serves as a tool for approximating integrals.\n");
@@ -107,6 +119,8 @@ public class RiemmanSumApp {
         System.out.println("so everything else will be ignored/not behave correctly at the moment.\n");
     }
 
+    // MODIFIES: this
+    // EFFECTS: Prompts user to input all the relevant data required for a new Riemman Sum
     private void inputNewRiemmanSum() {
         System.out.println("Input your function type (Trigonometric, Logarithmic, or Linear): ");
         mathFunctionType = askForInput().toLowerCase();
@@ -127,6 +141,8 @@ public class RiemmanSumApp {
         sumType = askForInput().toLowerCase();
     }
 
+    // MODIFIES: this
+    // EFFECTS: Prompts user for their input, and keeps retrying until a valid input is given
     private String askForInput() {
         String userInput;
 
@@ -137,18 +153,23 @@ public class RiemmanSumApp {
         return userInput.trim();
     }
 
+    // MODIFIES: this
+    // EFFECTS: Computes the Riemman Sum and prints it to console
     private void computeResult() {
         double result = riSum.computeRiemmanSum();
         System.out.println("\nYour Riemman Sum result is: " + result);
         currentResult = result;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Takes in input for a new Riemman Sum, computes its result, and relays it to the console
     private void computeNewRiemmanSum() {
         inputNewRiemmanSum();
         riSum.addNewRiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
         computeResult();
     }
 
+    // EFFECTS: Prints all available commands to the console
     private void displayCommandMenu() {
         System.out.println("\nInput \"h\" if you want to see a history of your computations.");
         System.out.println("Input \"r\" if you want to readjust your \"n\" value and/or sum type for current sum.");
@@ -156,7 +177,7 @@ public class RiemmanSumApp {
         System.out.println("Input \"q\" if you want to quit.");
     }
 
-    // EFFECTS: prints list of all computations made so far
+    // EFFECTS: prints list of all computations made so far and presents it in a nice format
     private void printOutComputationStats() {
         System.out.print('\n');
         System.out.println("---------");
@@ -169,4 +190,5 @@ public class RiemmanSumApp {
         }
         System.out.print("\n");
     }
+
 }
