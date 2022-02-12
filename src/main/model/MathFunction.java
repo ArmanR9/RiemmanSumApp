@@ -21,7 +21,7 @@ public class MathFunction {
 
     // REQUIRES: type has to be either Trigonometric, Logarithmic, or Linear
     //           unparsedFunction must abide by constraints outlined in README.md
-    // EFFECTS: Constructs a math function with the function type (trig, log, linear) and its unparsed, human-readable
+    // EFFECTS: Constructs a math function with the function type (trig, log, linear) and its unparsed
     //          function input
     public MathFunction(String type, String unparsedFunction) {
         this.functionType = parseFnType(type.trim());
