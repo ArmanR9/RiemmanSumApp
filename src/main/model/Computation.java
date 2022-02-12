@@ -12,6 +12,8 @@ import java.util.List;
      - A interval value
      - B interval value
      - Number of rectangles
+     and functionality to output that data in a nice
+     format.
  */
 public class Computation {
 

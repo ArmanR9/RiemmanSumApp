@@ -46,6 +46,7 @@ public class RiemmanSumApp {
 
     // MODIFIES: this
     // EFFECTS: Receives user's input on necessary function and partition values for sum
+    //          and begins UI loop
     private void runConsoleLoop() {
         printWelcomeScreen();
         inputNewRiemmanSum();
@@ -86,7 +87,7 @@ public class RiemmanSumApp {
 
     // MODIFIES: this
     // EFFECTS: Takes in new "n" and "Riemman Sum Type" values to compute a new sum,
-    //          and compare it with the old result
+    //          and compares it with the old result
     private void recomputeAdjustedRiemmanSum() {
         System.out.println("Input your new \"n\" value: ");
         int newValueN = Integer.parseInt(askForInput());
@@ -97,8 +98,7 @@ public class RiemmanSumApp {
         System.out.println("Old \"n\" value: " + numOfRectsN + ", Sum type: "
                 + sumType + ", and Result: " + currentResult);
 
-        riSum.recomputeAdjustedSum(newValueN, newSumType);
-        double newResult = riSum.computeRiemmanSum();
+        double newResult = riSum.recomputeAdjustedSum(newValueN, newSumType);
 
         System.out.println("New \"n\" value: " + newValueN + ", Sum type: "
                 + newSumType + ", and Result: " + newResult);

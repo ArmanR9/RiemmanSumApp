@@ -19,7 +19,7 @@ public class RiemmanSum {
     //           mathFuncType is one of TRIGONOMETRIC, LOGARITHMIC, LINEAR,
     //           mathFunction abides by the constraints outlined in the README.md
     //           n > 0
-    // EFFECTS: Constructs Riemman Sum with user-inputted partition and n values.
+    // EFFECTS: Constructs Riemman Sum with user-inputted related function, interval, and partition values
     public RiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction, double a, double b, int n) {
         this.computationHistory = new ArrayList<>();
         this.currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);

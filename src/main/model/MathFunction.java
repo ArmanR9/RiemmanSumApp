@@ -2,7 +2,7 @@ package model;
 
 /*
     Function parser that takes in a mathematical function and type, and provides
-    a utility for computing such function at a given x value.
+    utility for computing such function at a given x value.
  */
 public class MathFunction {
     enum FuncType {
@@ -19,8 +19,8 @@ public class MathFunction {
     private int iterator;
 
 
-    // REQUIRES: Type to be either trigonometric, logarithmic, or linear and function has to abide by form
-    //           marked in README.md
+    // REQUIRES: type has to be either Trigonometric, Logarithmic, or Linear
+    //           unparsedFunction must abide by constraints outlined in README.md
     // EFFECTS: Constructs a math function with the function type (trig, log, linear) and its unparsed, human-readable
     //          function input
     public MathFunction(String type, String unparsedFunction) {

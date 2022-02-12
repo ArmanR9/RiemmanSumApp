@@ -65,21 +65,21 @@ class RiemmanSumTest {
     @Test
     void testRightSum(){
         assertEquals(0, testSumLog.getComputationHistorySize());
-        assertEquals(13.262, testSumLog.computeRiemmanSum(), 0.01);
+        assertEquals(13.262, testSumLog.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumLog.getComputationHistorySize());
     }
 
     @Test
     void testMidSum(){
         assertEquals(0, testSumLin.getComputationHistorySize());
-        assertEquals(-396, testSumLin.computeRiemmanSum(), 0.01);
+        assertEquals(-396, testSumLin.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumLin.getComputationHistorySize());
     }
 
     @Test
     void testLeftSum(){
         assertEquals(0, testSumSin.getComputationHistorySize());
-        assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.01);
+        assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumSin.getComputationHistorySize());
     }
 
@@ -89,7 +89,7 @@ class RiemmanSumTest {
         assertEquals(12, testSumLog.getIntervalB());
         assertEquals(6, testSumLog.getNumOfRectangles());
         assertEquals(0, testSumLog.getComputationHistorySize());
-        assertEquals((12 - 5) / 6.0, testSumLog.getDeltaX(), 0.01);
+        assertEquals((12 - 5) / 6.0, testSumLog.getDeltaX(), 0.015);
         assertEquals("2log(x)", testSumLog.getFunction());
 
         testSumLog.addNewRiemmanSum("midpoint", "linear", "5x", 1, 2, 3);
@@ -97,7 +97,7 @@ class RiemmanSumTest {
         assertEquals(2, testSumLog.getIntervalB());
         assertEquals(3, testSumLog.getNumOfRectangles());
         assertEquals(0, testSumLog.getComputationHistorySize());
-        assertEquals((2 - 1) / 3.0, testSumLog.getDeltaX(), 0.01);
+        assertEquals((2 - 1) / 3.0, testSumLog.getDeltaX(), 0.015);
         assertEquals("5x", testSumLog.getFunction());
 
     }
@@ -106,18 +106,18 @@ class RiemmanSumTest {
     void testComputingReadjustedSums(){
         assertEquals(0, testSumLog.getComputationHistorySize());
 
-        assertEquals(12.83, testSumLog.recomputeAdjustedSum(200, "midpoint"), 0.01);
+        assertEquals(12.83, testSumLog.recomputeAdjustedSum(200, "midpoint"), 0.015);
         assertEquals(1, testSumLog.getComputationHistorySize());
 
-        assertEquals(12.56, testSumLog.recomputeAdjustedSum(10, "left"), 0.01);
+        assertEquals(12.56, testSumLog.recomputeAdjustedSum(10, "left"), 0.015);
         assertEquals(2, testSumLog.getComputationHistorySize());
 
         assertEquals(0, testSumLin.getComputationHistorySize());
-        assertEquals(-198, testSumLin.recomputeAdjustedSum(1, "left"), 0.01);
+        assertEquals(-198, testSumLin.recomputeAdjustedSum(1, "left"), 0.015);
         assertEquals(1, testSumLin.getComputationHistorySize());
 
-        assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.01);
-        assertEquals(19.899, testSumSin.recomputeAdjustedSum(50, "midpoint"), 0.01);
+        assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.015);
+        assertEquals(19.899, testSumSin.recomputeAdjustedSum(50, "midpoint"), 0.015);
 
     }
 
@@ -127,11 +127,11 @@ class RiemmanSumTest {
 
         testSumSin.computeRiemmanSum();
         assertEquals(1, testSumSin.getComputationHistorySize());
-        assertEquals(17.07, testSumSin.getComputationHistory().get(0).getComputationResult(), 0.01);
+        assertEquals(17.07, testSumSin.getComputationHistory().get(0).getComputationResult(), 0.015);
 
         testSumSin.recomputeAdjustedSum(90, "right");
         assertEquals(2, testSumSin.getComputationHistorySize());
-        assertEquals(20.1744, testSumSin.getComputationHistory().get(1).getComputationResult(), 0.01);
+        assertEquals(20.1744, testSumSin.getComputationHistory().get(1).getComputationResult(), 0.015);
 
     }
 
@@ -141,7 +141,7 @@ class RiemmanSumTest {
         assertEquals(n, testObj.getNumOfRectangles());
         assertEquals(0, testObj.getComputationHistorySize());
         assertEquals(func, testObj.getFunction());
-        assertEquals((b - a) / (double)n, testObj.getDeltaX(), 0.01);
+        assertEquals((b - a) / (double)n, testObj.getDeltaX(), 0.015);
     }
 
 }
