@@ -80,6 +80,7 @@ public class ComputationTest {
     private void produceStatsTestHelper(Computation testComp, Computation.SumType sumType) {
         List<String> stats = testComp.produceStats();
 
+        assertEquals(7, stats.size());
         assertEquals("Computation number: " + testComp.getComputationNumber(), stats.get(0));
         assertEquals("Function used: " + testComp.getComputationFunction(), stats.get(1));
 
@@ -98,6 +99,7 @@ public class ComputationTest {
 
         assertEquals("Number of rectangles: " + testComp.getNumOfRectanglesN(), stats.get(4));
         assertEquals("Partition size: " + testComp.getDeltaX(), stats.get(5));
+        assertEquals("Computation result: " + testComp.getComputationResult(), stats.get(6));
 
     }
 

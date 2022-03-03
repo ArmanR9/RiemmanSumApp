@@ -66,7 +66,7 @@ public class Computation {
 
 
     // REQUIRES: riemmanSumType != null
-    // EFFECTS: Wraps Sum's statistics (including its interval, function, partition size, etc.)
+    // EFFECTS: Wraps Sum's statistics (including its interval, function, partition size, result)
     //          into a list of strings
     public List<String> produceStats() {
         List<String> statsArray = new ArrayList<>();
@@ -84,6 +84,7 @@ public class Computation {
         statsArray.add("Interval: [" + this.intervalA + ", " + this.intervalB + "]");
         statsArray.add("Number of rectangles: " + this.numOfRectanglesN);
         statsArray.add("Partition size: " + this.deltaX);
+        statsArray.add("Computation result: " + this.computationResult);
         return statsArray;
     }
 
@@ -146,7 +147,5 @@ public class Computation {
     public double getDeltaX() {
         return deltaX;
     }
-
-
 
 }
