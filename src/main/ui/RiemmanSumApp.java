@@ -126,7 +126,7 @@ public class RiemmanSumApp {
 
     // MODIFIES: this
     // EFFECTS: Takes in new "n" and "Riemman Sum Type" values to compute a new sum,
-    //          and compares it with the old result
+    //          and prints out comparison with the old result
     private void recomputeAdjustedRiemmanSum() {
         System.out.println("Input your new \"n\" value: ");
         int newValueN = Integer.parseInt(askForInput());
