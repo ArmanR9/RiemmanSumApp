@@ -1,6 +1,7 @@
 package persistence;
 
 import model.*;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -45,6 +46,8 @@ class JsonReaderTest extends JsonTest {
             sumEqualityCheckerHelper(testSumNoHistory, newlyReadRiemmanSum);
         } catch (IOException e) {
             fail("Couldn't read from file");
+        } catch (JSONException e) {
+            fail("File had invalid contents");
         }
     }
 
@@ -68,6 +71,8 @@ class JsonReaderTest extends JsonTest {
             sumEqualityCheckerHelper(testSumWithHistory, newlyReadRiemmanSum);
         } catch (IOException e) {
             fail("Couldn't read from file");
+        } catch (JSONException e) {
+            fail("File had invalid contents");
         }
     }
 
@@ -80,6 +85,22 @@ class JsonReaderTest extends JsonTest {
             testSumNoHistory = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
+            // pass
+        } catch (JSONException e) {
+            fail("Unexpected JSONException was thrown.");
+        }
+    }
+
+    @Test
+    void testReaderInvalidFile() {
+        JsonReader reader = new JsonReader("./data/testInvalidFileContents.json");
+
+        try {
+            testSumNoHistory = reader.read();
+            fail("JSONException expected");
+        } catch (IOException e) {
+            fail("Unexpected IOException was thrown.");
+        } catch (JSONException e) {
             // pass
         }
     }

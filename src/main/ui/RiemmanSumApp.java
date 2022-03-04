@@ -2,6 +2,7 @@ package ui;
 
 import model.Computation;
 import model.RiemmanSum;
+import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -288,6 +289,8 @@ public class RiemmanSumApp {
             System.out.println("Loaded Riemman Sum from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        } catch (JSONException e) {
+            System.out.println(JSON_STORE + " is empty or has invalid contents");
         }
     }
 

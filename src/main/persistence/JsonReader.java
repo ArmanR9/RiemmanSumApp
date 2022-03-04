@@ -4,6 +4,7 @@ import model.Computation;
 import model.MathFunction;
 import model.RiemmanSum;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class JsonReader {
 
     // EFFECTS: reads RiemmanSum from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public RiemmanSum read() throws IOException { // maybe add BadJSONfile exception too
+    public RiemmanSum read() throws IOException, JSONException { // maybe add BadJSONfile exception too
         String jsonData = readFile(src);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseRiemmanSum(jsonObject);

@@ -1,6 +1,7 @@
 package persistence;
 
 import model.*;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,9 @@ class JsonWriterTest extends JsonTest {
 
             sumEqualityCheckerHelper(testSumNoHistory, newlyReadRiemmanSum);
         } catch (IOException e) {
-            fail("Exception should not have been thrown");
+            fail("IOException should not have been thrown");
+        } catch (JSONException e) {
+            fail("JSONException should not have been thrown");
         }
     }
 
@@ -57,12 +60,14 @@ class JsonWriterTest extends JsonTest {
 
             sumEqualityCheckerHelper(testSumWithHistory, newlyReadRiemmanSum);
         } catch (IOException e) {
-            fail("Exception should not have been thrown");
+            fail("IOException should not have been thrown");
+        } catch (JSONException e) {
+            fail("JSONException should not have been thrown");
         }
     }
 
     @Test
-    void testWritingToInvalidFile() {
+    void testWritingToInvalidFileName() {
         try {
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
