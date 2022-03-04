@@ -199,4 +199,8 @@ public class RiemmanSum implements Writable {
         return computationHistory.size();
     }
 
+    public int getCompId() {
+        return compId;
+    }
+
 }

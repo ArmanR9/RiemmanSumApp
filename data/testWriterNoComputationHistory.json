@@ -1,0 +1,21 @@
+{
+    "current computation": {
+        "number of rectangles": 3,
+        "computation function": "-2sin(x)",
+        "computation number": 1,
+        "computation function type": "trigonometric",
+        "riemman sum type": "MIDPOINT",
+        "computation result": 0,
+        "interval b": 3.5,
+        "interval a": 0
+    },
+    "computation function": {
+        "parsed function string": "-2sin(x)",
+        "internal function iterator": 0,
+        "function type": "TRIGONOMETRIC",
+        "unparsed function string": "-2sin(x)",
+        "vertical coefficient": 1
+    },
+    "computation history": [],
+    "computation id": 2
+}

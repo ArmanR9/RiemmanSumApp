@@ -101,8 +101,10 @@ public class RiemmanSumApp {
             printOutComputationStats();
         } else if (nextInput.equals("r")) {
             recomputeAdjustedRiemmanSum();
+            hasSaved = false;
         } else if (nextInput.equals("n")) {
             computeNewRiemmanSum();
+            hasSaved = false;
         } else if (nextInput.equals("l")) {
             loadRiemmanSum();
         } else if (nextInput.equals("s")) {

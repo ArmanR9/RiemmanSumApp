@@ -17,7 +17,7 @@ class RiemmanSumTest {
 
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         testSumSin = new RiemmanSum("left", "trigonometric",
                 "13sin(x)", -1, 3, 10);
 
@@ -33,7 +33,7 @@ class RiemmanSumTest {
     }
 
     @Test
-    void testConstructor(){
+    void testConstructor() {
         // SinSum construction
         constructionTestHelper(testSumSin, -1, 3, 10, "13sin(x)");
 
@@ -49,7 +49,7 @@ class RiemmanSumTest {
 
 
     @Test
-    void testGetFunction(){
+    void testGetFunction() {
         assertEquals("13sin(x)", testSumSin.getFunction());
         assertEquals("-99x", testSumLin.getFunction());
         assertEquals("2log(x)", testSumLog.getFunction());
@@ -63,28 +63,28 @@ class RiemmanSumTest {
     }
 
     @Test
-    void testRightSum(){
+    void testRightSum() {
         assertEquals(0, testSumLog.getComputationHistorySize());
         assertEquals(13.262, testSumLog.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumLog.getComputationHistorySize());
     }
 
     @Test
-    void testMidSum(){
+    void testMidSum() {
         assertEquals(0, testSumLin.getComputationHistorySize());
         assertEquals(-396, testSumLin.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumLin.getComputationHistorySize());
     }
 
     @Test
-    void testLeftSum(){
+    void testLeftSum() {
         assertEquals(0, testSumSin.getComputationHistorySize());
         assertEquals(17.07, testSumSin.computeRiemmanSum(), 0.015);
         assertEquals(1, testSumSin.getComputationHistorySize());
     }
 
     @Test
-    void testAddingNewSums(){
+    void testAddingNewSums() {
         assertEquals(5, testSumLog.getIntervalA());
         assertEquals(12, testSumLog.getIntervalB());
         assertEquals(6, testSumLog.getNumOfRectangles());
@@ -103,7 +103,7 @@ class RiemmanSumTest {
     }
 
     @Test
-    void testComputingReadjustedSums(){
+    void testComputingReadjustedSums() {
         assertEquals(0, testSumLog.getComputationHistorySize());
 
         assertEquals(12.83, testSumLog.recomputeAdjustedSum(200, "midpoint"), 0.015);
@@ -122,7 +122,7 @@ class RiemmanSumTest {
     }
 
     @Test
-    void testAddingComputations(){
+    void testAddingComputations() {
         assertEquals(0, testSumSin.getComputationHistorySize());
 
         testSumSin.computeRiemmanSum();
@@ -133,6 +133,13 @@ class RiemmanSumTest {
         assertEquals(2, testSumSin.getComputationHistorySize());
         assertEquals(20.1744, testSumSin.getComputationHistory().get(1).getComputationResult(), 0.015);
 
+    }
+
+    @Test
+    void testSetCompId() {
+        assertEquals(2, testSumSin.getCompId());
+        testSumSin.setCompId(5);
+        assertEquals(5, testSumSin.getCompId());
     }
 
     private void constructionTestHelper(RiemmanSum testObj, double a, double b, int n, String func) {
