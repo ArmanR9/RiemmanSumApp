@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /*
- Represents a reader that reads JSON representation of RiemmanSum from file
+ Represents a file I/O reader that reads a JSON representation of a RiemmanSum from file
 
  NOTE:
  The JSONReader is largely modelled off of
@@ -32,7 +32,7 @@ public class JsonReader {
 
     // EFFECTS: reads RiemmanSum from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public RiemmanSum read() throws IOException, JSONException { // maybe add BadJSONfile exception too
+    public RiemmanSum read() throws IOException, JSONException {
         String jsonData = readFile(src);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseRiemmanSum(jsonObject);
@@ -61,10 +61,10 @@ public class JsonReader {
     }
 
     // EFFECTS: parses Computation object from JSON Object and returns it
-    private Computation parseComputation(JSONObject jsonObject, boolean isParsingHistory) {
+    private Computation parseComputation(JSONObject jsonObject, boolean isParsingComputationHistory) {
         JSONObject computationObj;
 
-        if (!isParsingHistory) {
+        if (!isParsingComputationHistory) {
             computationObj = jsonObject.getJSONObject("current computation");
         } else {
             computationObj = jsonObject;

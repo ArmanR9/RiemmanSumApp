@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 /*
 
-Interface for implementing Objects to JSON translation functionality
+Interface for implementing objects to JSON translation functionality
 
 NOTE:
 The Writable interface model is borrowed from

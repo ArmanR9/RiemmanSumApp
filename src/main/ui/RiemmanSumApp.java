@@ -11,9 +11,10 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /*
-    RiemmanSumApp houses all UI handling functionality including
-    asking user for input, then pinging the RiemmanSum class for data
-    about each RiemmanSum calculation to output onto standard io.
+    RiemmanSumApp houses all UI handling functionality including loading/saving
+    Riemman Sum data from disk, asking user for input on Riemman Sum paramaters,
+    and pinging the RiemmanSum class for data about each RiemmanSum calculation to
+    output onto standard io.
 
     NOTE:
     Part of the RiemmanSumApp constructor, runConsoleLoop(), displayCommandMenu(), and
@@ -71,6 +72,8 @@ public class RiemmanSumApp {
             inputNewRiemmanSum();
             riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
             computeResult();
+        } else {
+            hasSaved = true;
         }
 
         boolean hasQuit = false;
@@ -98,21 +101,26 @@ public class RiemmanSumApp {
     // EFFECTS: Parses user-inputted commands to direct the program to the appropriate function/task
     private void commandHandler(String nextInput) {
 
-        if (nextInput.equals("h")) {
-            printOutComputationStats();
-        } else if (nextInput.equals("r")) {
-            recomputeAdjustedRiemmanSum();
-            hasSaved = false;
-        } else if (nextInput.equals("n")) {
-            computeNewRiemmanSum();
-            hasSaved = false;
-        } else if (nextInput.equals("l")) {
-            loadRiemmanSum();
-        } else if (nextInput.equals("s")) {
-            hasSaved = true;
-            saveRiemmanSum();
-        } else {
-            System.out.println("Invalid input.");
+        switch (nextInput) {
+            case "h":
+                printOutComputationStats();
+                break;
+            case "r":
+                recomputeAdjustedRiemmanSum();
+                hasSaved = false;
+                break;
+            case "n":
+                computeNewRiemmanSum();
+                hasSaved = false;
+                break;
+            case "l":
+                loadRiemmanSum();
+                break;
+            case "s":
+                hasSaved = saveRiemmanSum();
+                break;
+            default:
+                System.out.println("Invalid input.");
         }
     }
 
@@ -162,14 +170,11 @@ public class RiemmanSumApp {
             input = askForInput().toLowerCase();
         }
 
-        if (input.equals("n")) {
-            return false;
-        } else if (loadRiemmanSum()) {
-            return true;
+        if (input.equals("y")) {
+            return loadRiemmanSum();
         } else {
             return false;
         }
-
     }
 
     // EFFECTS: prompts user to save current Riemman Sum to file before quitting

@@ -149,7 +149,7 @@ public class RiemmanSum implements Writable {
     private JSONArray computationListToJson() {
         JSONArray computationsJsonArray = new JSONArray();
 
-        for (Computation c: computationHistory) {
+        for (Computation c : computationHistory) {
             computationsJsonArray.put(c.toJson());
         }
 
