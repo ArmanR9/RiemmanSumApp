@@ -7,7 +7,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a file I/O writer that writes a JSON representation of a RiemmanSum to file
+
+/*
+ Represents a file I/O writer that writes a JSON representation of a RiemmanSum to file
+
+ NOTE:
+ The JSONWriter is largely modelled off of
+ https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ */
 public class JsonWriter {
     private String dest;
     private static final int TAB = 4;

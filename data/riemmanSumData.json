@@ -1,30 +1,62 @@
 {
     "current computation": {
-        "number of rectangles": 3,
-        "delta x": 0.3333333333333333,
-        "computation function": "sin(x)",
-        "computation number": 1,
+        "number of rectangles": 30,
+        "computation function": "-2tan(x)",
+        "computation number": 4,
         "computation function type": "trigonometric",
-        "riemman sum type": "LEFT",
-        "interval b": 2,
+        "riemman sum type": "MIDPOINT",
+        "computation result": -0.3498418852730696,
+        "interval b": 1.1,
         "interval a": 1
     },
     "computation function": {
-        "parsed function string": "sin",
-        "internal function iterator": 3,
+        "parsed function string": "tan",
+        "internal function iterator": 5,
         "function type": "TRIGONOMETRIC",
-        "unparsed function string": "sin(x)",
-        "vertical coefficient": 1
+        "unparsed function string": "-2tan(x)",
+        "vertical coefficient": -2
     },
-    "computation history": [{
-        "number of rectangles": 3,
-        "delta x": 0.3333333333333333,
-        "computation function": "sin(x)",
-        "computation number": 1,
-        "computation function type": "trigonometric",
-        "riemman sum type": "LEFT",
-        "interval b": 2,
-        "interval a": 1
-    }],
-    "computation id": 2
+    "computation history": [
+        {
+            "number of rectangles": 10,
+            "computation function": "5sin(x)",
+            "computation number": 1,
+            "computation function type": "trigonometric",
+            "riemman sum type": "LEFT",
+            "computation result": -2.0715965468101456,
+            "interval b": 5,
+            "interval a": 2
+        },
+        {
+            "number of rectangles": 6,
+            "computation function": "-3ln(x)",
+            "computation number": 2,
+            "computation function type": "logarithmic",
+            "riemman sum type": "MIDPOINT",
+            "computation result": -10.992008347802475,
+            "interval b": 5,
+            "interval a": 2
+        },
+        {
+            "number of rectangles": 10,
+            "computation function": "-2tan(x)",
+            "computation number": 3,
+            "computation function type": "trigonometric",
+            "riemman sum type": "RIGHT",
+            "computation result": -0.3539406439357639,
+            "interval b": 1.1,
+            "interval a": 1
+        },
+        {
+            "number of rectangles": 30,
+            "computation function": "-2tan(x)",
+            "computation number": 4,
+            "computation function type": "trigonometric",
+            "riemman sum type": "MIDPOINT",
+            "computation result": -0.3498418852730696,
+            "interval b": 1.1,
+            "interval a": 1
+        }
+    ],
+    "computation id": 5
 }

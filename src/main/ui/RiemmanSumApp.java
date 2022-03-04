@@ -18,6 +18,9 @@ import java.util.Scanner;
     Part of the RiemmanSumApp constructor, runConsoleLoop(), displayCommandMenu(), and
     commandHandler borrow code from the CPSC 210 TellerApp found at
     https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
+    The JSON writing and reading functionality is largely modelled off of
+    https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
 public class RiemmanSumApp {
@@ -58,14 +61,16 @@ public class RiemmanSumApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: Receives user's input on necessary function and partition values for sum
-    //          and begins UI loop
+    // EFFECTS: Loads Riemman Sum data from file or receives user's input on necessary function and partition values
+    //          for sum and then begins UI loop
     private void runConsoleLoop() {
         printWelcomeScreen();
-        askToLoadFromFile();
-        inputNewRiemmanSum();
-        riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
-        computeResult();
+
+        if (!askToLoadFromFile()) {
+            inputNewRiemmanSum();
+            riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+            computeResult();
+        }
 
         boolean hasQuit = false;
         String newCommand;
@@ -142,8 +147,9 @@ public class RiemmanSumApp {
         System.out.println("so everything else will be ignored/not behave correctly at the moment.\n");
     }
 
-    // EFFECTS: prompts user to load cld Riemman Sum from file before getting into the application
-    private void askToLoadFromFile() {
+    // EFFECTS: prompts user to load old Riemman Sum from file before getting into the application
+    //          and returns true if they select yes
+    private boolean askToLoadFromFile() {
         System.out.println("Would you like to load your previous Riemman Sum computation history? [y/n]");
         String input = askForInput().toLowerCase();
 
@@ -154,6 +160,9 @@ public class RiemmanSumApp {
 
         if (input.equals("y")) {
             loadRiemmanSum();
+            return true;
+        } else {
+            return false;
         }
     }
 

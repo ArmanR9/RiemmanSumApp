@@ -31,9 +31,18 @@ public class MathFunction implements Writable {
         this.unparsedFunction = unparsedFunction.trim().replace("*", "");
 
         this.verticalCoeff = 1.0; // Default values
-        this.functionName = null;
+        this.functionName = this.unparsedFunction;
 
         this.iterator = 0;
+    }
+
+    // EFFECTS: Constructs math function object from JSON file generated data.
+    public MathFunction(String parsedFn, String fnType, String unparsedFn, int vertCoeff, int internalIterator) {
+        this.functionName = parsedFn;
+        this.functionType = parseFnType(fnType);
+        this.unparsedFunction = unparsedFn;
+        this.verticalCoeff = vertCoeff;
+        this.iterator = internalIterator;
     }
 
     // REQUIRES: type != null or empty
@@ -107,7 +116,6 @@ public class MathFunction implements Writable {
     // EFFECTS: Computes linear function at the x value specified.
     private double computeLinearFunc(double x) {
         parseVertDisp();
-
         return verticalCoeff * x;
     }
 
