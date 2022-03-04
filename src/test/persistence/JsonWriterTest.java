@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /*
     JUnit testing class for all writing functionality
     housed in the JsonWriter class
+
+    NOTE: The JSONWriterTest is partly modelled off of
+    https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 class JsonWriterTest extends JsonTest {
     private RiemmanSum testSumWithHistory;

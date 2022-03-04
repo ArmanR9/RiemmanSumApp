@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /*
     JUnit testing class for all reading functionality
     housed in the JsonReader class
+
+    NOTE: The JSONReaderTest is partly modelled off of
+    https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 class JsonReaderTest extends JsonTest {
     private RiemmanSum testSumWithHistory;
