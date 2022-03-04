@@ -25,10 +25,9 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 ### 1. What will this application do?
 
 - The Riemman Sum calculator will serve as a desktop application designed to estimate integrals by using Riemman Sums of the left, midpoint, or right variety. 
-- Given a relatively simple function (basic polynomial, trigonemtric, exponential functions and more) and a partition width, this calculator will be able approximate integrals and provide a visualization for your Riemman sum.
-- Additional features include:
-    - History of your previous Riemman Sum computations 
-    - Exercises to practice Riemman Sum computations
+- Given a relatively simple function (basic polynomial, trigonometric, exponential functions and more) and a partition width, this calculator will be able approximate integrals and provide a visualization for your Riemman sum.
+- Additional feature(s) include:
+    - History of your previous Riemman Sum computations
 
 ### 2. Who will use it?
 
@@ -38,7 +37,7 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 ### 3. Why is this project of interest to you?
 
 - I enjoy math, so I wanted to make a project that pertains to math and this seemed to be a good option. While an integral or derivative calculator would be cool to make, it would be on orders of magnitude more
-  complex than this, so I decided to settle with a Riemman Sum Calculator that will still have some challenges such as parsing functions in reverse polish notation and visualizing the Riemman sums. 
+  complex than this, so I decided to settle with a Riemman Sum Calculator that will still have some challenges such as parsing functions in infix notation (and eventually reverse polish notation) and visualizing the Riemman sums. 
 - In addition, this will serve to be a handy tool to check my work when doing Riemman sums, especially when the "n" value is large (no one wants to manually compute 36 rectangles)
 
 ### 4. User Stories

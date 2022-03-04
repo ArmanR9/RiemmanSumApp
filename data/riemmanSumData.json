@@ -1,1 +1,52 @@
-{}
+{
+      "current computation": {
+            "number of rectangles": 30,
+            "computation function": "3log(x)",
+            "computation number": 3,
+            "computation function type": "logarithmic",
+            "riemman sum type": "LEFT",
+            "computation result": 13.5090545191146,
+            "interval b": 9,
+            "interval a": 3
+      },
+      "computation function": {
+            "parsed function string": "log",
+            "internal function iterator": 4,
+            "function type": "LOGARITHMIC",
+            "unparsed function string": "3log(x)",
+            "vertical coefficient": 3
+      },
+      "computation history": [
+            {
+                  "number of rectangles": 10,
+                  "computation function": "5sin(x)",
+                  "computation number": 1,
+                  "computation function type": "trigonometric",
+                  "riemman sum type": "MIDPOINT",
+                  "computation result": 1.1894653728853177,
+                  "interval b": 4,
+                  "interval a": 2
+            },
+            {
+                  "number of rectangles": 20,
+                  "computation function": "5sin(x)",
+                  "computation number": 2,
+                  "computation function type": "trigonometric",
+                  "riemman sum type": "RIGHT",
+                  "computation result": 0.7699692061466923,
+                  "interval b": 4,
+                  "interval a": 2
+            },
+            {
+                  "number of rectangles": 30,
+                  "computation function": "3log(x)",
+                  "computation number": 3,
+                  "computation function type": "logarithmic",
+                  "riemman sum type": "LEFT",
+                  "computation result": 13.5090545191146,
+                  "interval b": 9,
+                  "interval a": 3
+            }
+      ],
+      "computation id": 4
+}

@@ -162,12 +162,14 @@ public class RiemmanSumApp {
             input = askForInput().toLowerCase();
         }
 
-        if (input.equals("y")) {
-            loadRiemmanSum();
+        if (input.equals("n")) {
+            return false;
+        } else if (loadRiemmanSum()) {
             return true;
         } else {
             return false;
         }
+
     }
 
     // EFFECTS: prompts user to save current Riemman Sum to file before quitting
@@ -190,7 +192,7 @@ public class RiemmanSumApp {
     // MODIFIES: this
     // EFFECTS: Prompts user to input all the relevant data required for a new Riemman Sum
     private void inputNewRiemmanSum() {
-        System.out.println("Input your function type (Trigonometric, Logarithmic, or Linear): ");
+        System.out.println("\nInput your function type (Trigonometric, Logarithmic, or Linear): ");
         mathFunctionType = askForInput().toLowerCase();
 
         System.out.println("Input your function: ");
@@ -261,21 +263,23 @@ public class RiemmanSumApp {
         System.out.print("\n");
     }
 
-    // EFFECTS: saves the Riemman Sum to file
-    private void saveRiemmanSum() {
+    // EFFECTS: saves the Riemman Sum to file and returns true if successful; false otherwise
+    private boolean saveRiemmanSum() {
         try {
             jsonWriter.open();
             jsonWriter.write(riSum);
             jsonWriter.close();
             System.out.println("Saved current Riemman Sum to " + JSON_STORE);
+            return true;
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
+            return false;
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: loads Riemman Sum from file
-    private void loadRiemmanSum() {
+    // EFFECTS: loads Riemman Sum from file and returns true if successful; false otherwise
+    private boolean loadRiemmanSum() {
         try {
             riSum = jsonReader.read();
 
@@ -287,10 +291,13 @@ public class RiemmanSumApp {
             sumType = riSum.getRiemmanSumType();
 
             System.out.println("Loaded Riemman Sum from " + JSON_STORE);
+            return true;
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+            return false;
         } catch (JSONException e) {
             System.out.println(JSON_STORE + " is empty or has invalid contents");
+            return false;
         }
     }
 
