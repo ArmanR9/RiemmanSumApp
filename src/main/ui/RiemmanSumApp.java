@@ -149,6 +149,7 @@ public class RiemmanSumApp {
         System.out.println("so everything else will be ignored/not behave correctly at the moment.\n");
     }
 
+    // MODIFIES: this
     // EFFECTS: prompts user to load old Riemman Sum from file before getting into the application
     //          and returns true if they select yes
     private boolean askToLoadFromFile() {

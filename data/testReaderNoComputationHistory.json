@@ -1,19 +1,19 @@
 {
       "current computation": {
-            "number of rectangles": 3,
-            "computation function": "-2sin(x)",
+            "number of rectangles": 2,
+            "computation function": "5tan(x)",
             "computation number": 1,
             "computation function type": "trigonometric",
             "riemman sum type": "MIDPOINT",
             "computation result": 0,
-            "interval b": 3.5,
-            "interval a": 0
+            "interval b": 0.9,
+            "interval a": 0.2
       },
       "computation function": {
-            "parsed function string": "-2sin(x)",
+            "parsed function string": "5tan(x)",
             "internal function iterator": 0,
             "function type": "TRIGONOMETRIC",
-            "unparsed function string": "-2sin(x)",
+            "unparsed function string": "5tan(x)",
             "vertical coefficient": 1
       },
       "computation history": [],

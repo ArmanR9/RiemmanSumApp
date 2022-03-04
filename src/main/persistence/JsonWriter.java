@@ -17,7 +17,7 @@ import java.io.PrintWriter;
  */
 public class JsonWriter {
     private String dest;
-    private static final int TAB = 4;
+    private static final int TAB = 6;
     private PrintWriter writer;
 
     // EFFECTS: constructs new JsonWriter that has destination file set to dest
@@ -36,17 +36,13 @@ public class JsonWriter {
     // EFFECTS: writes JSON representation of Riemman Sum to file
     public void write(RiemmanSum riSum) {
         JSONObject json = riSum.toJson();
-        saveToFile(json.toString(TAB));
+        writer.print(json.toString(TAB));
     }
 
     // MODIFIES: this
     // EFFECTS: closes writer
     public void close() {
         writer.close();
-    }
-
-    private void saveToFile(String jsonString) {
-        writer.print(jsonString);
     }
 
 }

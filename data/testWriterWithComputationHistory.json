@@ -1,33 +1,5 @@
 {
-    "current computation": {
-        "number of rectangles": 5,
-        "computation function": "5x",
-        "computation number": 2,
-        "computation function type": "linear",
-        "riemman sum type": "RIGHT",
-        "computation result": 72.97999999999999,
-        "interval b": 5.2,
-        "interval a": 1.1
-    },
-    "computation function": {
-        "parsed function string": "5x",
-        "internal function iterator": 1,
-        "function type": "LINEAR",
-        "unparsed function string": "5x",
-        "vertical coefficient": 5
-    },
-    "computation history": [
-        {
-            "number of rectangles": 10,
-            "computation function": "5x",
-            "computation number": 1,
-            "computation function type": "linear",
-            "riemman sum type": "LEFT",
-            "computation result": 60.37249999999999,
-            "interval b": 5.2,
-            "interval a": 1.1
-        },
-        {
+      "current computation": {
             "number of rectangles": 5,
             "computation function": "5x",
             "computation number": 2,
@@ -36,7 +8,35 @@
             "computation result": 72.97999999999999,
             "interval b": 5.2,
             "interval a": 1.1
-        }
-    ],
-    "computation id": 3
+      },
+      "computation function": {
+            "parsed function string": "5x",
+            "internal function iterator": 1,
+            "function type": "LINEAR",
+            "unparsed function string": "5x",
+            "vertical coefficient": 5
+      },
+      "computation history": [
+            {
+                  "number of rectangles": 10,
+                  "computation function": "5x",
+                  "computation number": 1,
+                  "computation function type": "linear",
+                  "riemman sum type": "LEFT",
+                  "computation result": 60.37249999999999,
+                  "interval b": 5.2,
+                  "interval a": 1.1
+            },
+            {
+                  "number of rectangles": 5,
+                  "computation function": "5x",
+                  "computation number": 2,
+                  "computation function type": "linear",
+                  "riemman sum type": "RIGHT",
+                  "computation result": 72.97999999999999,
+                  "interval b": 5.2,
+                  "interval a": 1.1
+            }
+      ],
+      "computation id": 3
 }

@@ -47,6 +47,6 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 - As a user, I want to add a Riemman Sum computation to a history of previous computations and view them.
 - As a user, I want to be able to input basic fundamental trigonometric, logarithmic, or linear function to compute my Riemman sum.
 - As a user, I want to be able to adjust the n value used in the most recent Riemman Sum calculation without having to input the function in again and then compare the new and old results.
-- As a user, when I select the quit option from the application menu, I want to be reminded to save my Riemman Sum computations to file and have the option to do so or not.
-- As a user, when I start the application, I want to be given the option to load my Riemman Sum computations from file.
+- As a user, I want to save my current Riemman Sum computation and computation history to file.
+- As a user, I want to load my current Riemman Sum computation and computation history from file.
 

@@ -97,7 +97,7 @@ public class JsonReader {
         return new MathFunction(function, functionType, unparsedFunction, vertCoeff, internalFnIterator);
     }
 
-
+    // EFFECTS: parses Computation History array in given json object and returns it as a list
     private List<Computation> parseComputationHistory(JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("computation history");
         List<Computation> computationHistoryList = new ArrayList<>();
