@@ -59,7 +59,7 @@ class RiemmanSumTest {
     void testInvalidSums() {
         assertEquals(Double.NaN, invalidSum.computeRiemmanSum());
         assertEquals(Double.NaN, invalidSum.recomputeAdjustedSum(5, "right"));
-        assertEquals(Double.NaN, invalidSum.recomputeAdjustedSum(5, "midpoint"));
+        assertEquals(Double.NaN, invalidSum.recomputeAdjustedSum(9, "midpoint"));
     }
 
     @Test

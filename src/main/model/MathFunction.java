@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
     Function parser that takes in a mathematical function and type, and provides
     utility for computing such function at a given x value.
  */
-public class MathFunction {
+public class MathFunction implements Writable {
     enum FuncType {
         TRIGONOMETRIC,
         LOGARITHMIC,
@@ -180,6 +183,19 @@ public class MathFunction {
         }
 
         this.iterator = i;
+    }
+
+    // EFFECTS: returns MathFunction object as an JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("function type", functionType);
+        json.put("unparsed function string", unparsedFunction);
+        json.put("vertical coefficient", verticalCoeff);
+        json.put("parsed function string", functionName);
+        json.put("internal function iterator", iterator);
+
+        return new JSONObject();
     }
 
     // getters

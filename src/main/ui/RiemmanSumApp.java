@@ -17,6 +17,7 @@ import java.util.Scanner;
  */
 
 public class RiemmanSumApp {
+    private static final String JSON_STORE = "./data/riemmanSumData.json";
     private RiemmanSum riSum;
     private Scanner consoleInput;
 

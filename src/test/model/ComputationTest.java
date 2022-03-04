@@ -75,31 +75,36 @@ public class ComputationTest {
         assertEquals("right", testComputationRIGHT.getRiemmanSumTypeString());
         testComputationRIGHT.setRiemmanSumType("left");
         assertEquals("left", testComputationRIGHT.getRiemmanSumTypeString());
+        testComputationRIGHT.setRiemmanSumType("midpoint");
+        assertEquals("midpoint", testComputationRIGHT.getRiemmanSumTypeString());
+        testComputationRIGHT.setRiemmanSumType("right");
+        assertEquals("right", testComputationRIGHT.getRiemmanSumTypeString());
     }
 
     private void produceStatsTestHelper(Computation testComp, Computation.SumType sumType) {
         List<String> stats = testComp.produceStats();
 
-        assertEquals(7, stats.size());
+        assertEquals(8, stats.size());
         assertEquals("Computation number: " + testComp.getComputationNumber(), stats.get(0));
         assertEquals("Function used: " + testComp.getComputationFunction(), stats.get(1));
+        assertEquals("Function type: " + testComp.getComputationFunctionType(), stats.get(2));
 
         if (sumType == Computation.SumType.LEFT) {
-            assertEquals("Riemman Sum Type: Left Sum", stats.get(2));
+            assertEquals("Riemman Sum Type: Left Sum", stats.get(3));
         } else if (sumType == Computation.SumType.RIGHT) {
-            assertEquals("Riemman Sum Type: Right Sum", stats.get(2));
+            assertEquals("Riemman Sum Type: Right Sum", stats.get(3));
         } else if (sumType == Computation.SumType.MIDPOINT) {
-            assertEquals("Riemman Sum Type: Midpoint Sum", stats.get(2));
+            assertEquals("Riemman Sum Type: Midpoint Sum", stats.get(3));
         } else {
-            assertEquals("Riemman Sum Type: INVALID", stats.get(2));
+            assertEquals("Riemman Sum Type: INVALID", stats.get(3));
         }
 
         assertEquals("Interval: [" + testComp.getIntervalA() + ", " + testComp.getIntervalB() + "]",
-                stats.get(3));
+                stats.get(4));
 
-        assertEquals("Number of rectangles: " + testComp.getNumOfRectanglesN(), stats.get(4));
-        assertEquals("Partition size: " + testComp.getDeltaX(), stats.get(5));
-        assertEquals("Computation result: " + testComp.getComputationResult(), stats.get(6));
+        assertEquals("Number of rectangles: " + testComp.getNumOfRectanglesN(), stats.get(5));
+        assertEquals("Partition size: " + testComp.getDeltaX(), stats.get(6));
+        assertEquals("Computation result: " + testComp.getComputationResult(), stats.get(7));
 
     }
 

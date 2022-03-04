@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /*
     Computation class that houses all statistics about
@@ -15,7 +19,7 @@ import java.util.List;
      and functionality to output that data in a nice
      format.
  */
-public class Computation {
+public class Computation implements Writable {
 
     enum SumType {
         LEFT,
@@ -25,7 +29,8 @@ public class Computation {
 
     private int computationNumber;
     private SumType riemmanSumType;
-    private MathFunction computationFunction;
+    private String computationFunction;
+    private String computationFunctionType;
     private double computationResult;
     private double intervalB;
     private double intervalA;
@@ -37,7 +42,11 @@ public class Computation {
     public Computation(int compId, String sumType, String funcType, String function, double a, double b, int n) {
         this.computationNumber = compId;
         this.riemmanSumType = parseSumType(sumType);
-        this.computationFunction = new MathFunction(funcType, function);
+
+        MathFunction mathFnObj = new MathFunction(funcType, function);
+        this.computationFunction = mathFnObj.getFunction();
+        this.computationFunctionType = mathFnObj.getFunctionType().name().toLowerCase();
+
         this.computationResult = 0.0;
         this.intervalA = a;
         this.intervalB = b;
@@ -71,7 +80,8 @@ public class Computation {
     public List<String> produceStats() {
         List<String> statsArray = new ArrayList<>();
         statsArray.add("Computation number: " + this.computationNumber);
-        statsArray.add("Function used: " + this.computationFunction.getFunction());
+        statsArray.add("Function used: " + this.computationFunction);
+        statsArray.add("Function type: " + this.computationFunctionType);
 
         if (riemmanSumType.equals(SumType.LEFT)) {
             statsArray.add("Riemman Sum Type: Left Sum");
@@ -86,6 +96,21 @@ public class Computation {
         statsArray.add("Partition size: " + this.deltaX);
         statsArray.add("Computation result: " + this.computationResult);
         return statsArray;
+    }
+
+    // EFFECTS: returns RiemmanSum object as an JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("computation number", computationNumber);
+        json.put("riemman sum type", riemmanSumType);
+        json.put("computation function", computationFunction);
+        json.put("computation function type", computationFunctionType);
+        json.put("interval b", intervalB);
+        json.put("interval a", intervalA);
+        json.put("number of rectangles", numOfRectanglesN);
+        json.put("delta x", deltaX);
+        return json;
     }
 
     // MODIFIES: this
@@ -125,11 +150,11 @@ public class Computation {
     }
 
     public String getComputationFunction() {
-        return computationFunction.getFunction();
+        return computationFunction;
     }
 
     public String getComputationFunctionType() {
-        return computationFunction.getFunctionType().name().toLowerCase();
+        return computationFunctionType;
     }
 
     public double getIntervalB() {

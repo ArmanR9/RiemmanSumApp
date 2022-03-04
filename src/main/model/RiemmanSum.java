@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +13,7 @@ import java.util.List;
     and midpoint Riemman sums, in addition to storing history
     of computations.
  */
-public class RiemmanSum {
+public class RiemmanSum implements Writable {
     private int compId = 1;
     private List<Computation> computationHistory;
     private Computation currentComputation;
@@ -118,6 +122,29 @@ public class RiemmanSum {
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
         return sum;
+    }
+
+    // EFFECTS: returns RiemmanSum object as an JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("computation id", compId);
+        json.put("current computation", currentComputation.toJson());
+        json.put("computation function", currentFunction.toJson());
+        json.put("computation history", computationListToJson());
+
+        return new JSONObject();
+    }
+
+    // EFFECTS: returns computation history as an JSON array object
+    private JSONArray computationListToJson() {
+        JSONArray computationsJsonArray = new JSONArray();
+
+        for (Computation c: computationHistory) {
+            computationsJsonArray.put(c.toJson());
+        }
+
+        return computationsJsonArray;
     }
 
     // getters
