@@ -2,7 +2,11 @@ package ui;
 
 import model.Computation;
 import model.RiemmanSum;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /*
@@ -20,6 +24,9 @@ public class RiemmanSumApp {
     private static final String JSON_STORE = "./data/riemmanSumData.json";
     private RiemmanSum riSum;
     private Scanner consoleInput;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private boolean hasSaved;
 
     private String mathFunctionType;
     private String mathFunction;
@@ -29,10 +36,15 @@ public class RiemmanSumApp {
     private String sumType;
     private double currentResult;
 
-    // EFFECTS: constructs Riemman Sum Application and initializes UI elements
+    // EFFECTS: constructs Riemman Sum Application, initializes file I/O elements,
+    //          and initializes UI elements
     public RiemmanSumApp() {
         consoleInput = new Scanner(System.in);
         consoleInput.useDelimiter("\n");
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        hasSaved = false;
 
         mathFunctionType = "";
         mathFunction = "";
@@ -50,6 +62,7 @@ public class RiemmanSumApp {
     //          and begins UI loop
     private void runConsoleLoop() {
         printWelcomeScreen();
+        askToLoadFromFile();
         inputNewRiemmanSum();
         riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
         computeResult();
@@ -68,6 +81,10 @@ public class RiemmanSumApp {
             }
         }
 
+        if (!hasSaved) {
+            askToSaveToFile();
+        }
+
         System.out.println("Exiting application...");
     }
 
@@ -81,6 +98,11 @@ public class RiemmanSumApp {
             recomputeAdjustedRiemmanSum();
         } else if (nextInput.equals("n")) {
             computeNewRiemmanSum();
+        } else if (nextInput.equals("l")) {
+            loadRiemmanSum();
+        } else if (nextInput.equals("s")) {
+            hasSaved = true;
+            saveRiemmanSum();
         } else {
             System.out.println("Invalid input.");
         }
@@ -118,6 +140,38 @@ public class RiemmanSumApp {
         System.out.print(" are only supported right now.\n");
         System.out.print("They also only accept an integer as a vertical scaling factor, ");
         System.out.println("so everything else will be ignored/not behave correctly at the moment.\n");
+    }
+
+    // EFFECTS: prompts user to load cld Riemman Sum from file before getting into the application
+    private void askToLoadFromFile() {
+        System.out.println("Would you like to load your previous Riemman Sum computation history? [y/n]");
+        String input = askForInput().toLowerCase();
+
+        while (!input.equals("n") && !input.equals("y")) {
+            System.out.println("Invalid input, try typing just \"y\" or \"n\"");
+            input = askForInput().toLowerCase();
+        }
+
+        if (input.equals("y")) {
+            loadRiemmanSum();
+        }
+    }
+
+    // EFFECTS: prompts user to save current Riemman Sum to file before quitting
+    private void askToSaveToFile() {
+        System.out.print("You haven't saved your current Riemman Sums yet? Would you like to save them to file? ");
+        System.out.println("[y/n]");
+
+        String input = askForInput().toLowerCase();
+
+        while (!input.equals("n") && !input.equals("y")) {
+            System.out.println("Invalid input, try typing just \"y\" or \"n\"");
+            input = askForInput().toLowerCase();
+        }
+
+        if (input.equals("y")) {
+            saveRiemmanSum();
+        }
     }
 
     // MODIFIES: this
@@ -175,6 +229,8 @@ public class RiemmanSumApp {
         System.out.println("\nInput \"h\" if you want to see a history of your computations.");
         System.out.println("Input \"r\" if you want to readjust your \"n\" value and/or sum type for current sum.");
         System.out.println("Input \"n\" if you want to compute a new Riemman Sum.");
+        System.out.println("Input \"l\" if you want to load previous Riemman Sum(s) from file.");
+        System.out.println("Input \"s\" if you want to save the current Riemman Sum(s) to file.");
         System.out.println("Input \"q\" if you want to quit.");
     }
 
@@ -190,6 +246,37 @@ public class RiemmanSumApp {
             System.out.println("---------");
         }
         System.out.print("\n");
+    }
+
+    // EFFECTS: saves the Riemman Sum to file
+    private void saveRiemmanSum() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(riSum);
+            jsonWriter.close();
+            System.out.println("Saved current Riemman Sum to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Riemman Sum from file
+    private void loadRiemmanSum() {
+        try {
+            riSum = jsonReader.read();
+
+            mathFunctionType = riSum.getFunctionType();
+            mathFunction = riSum.getFunction();
+            intervalA = riSum.getIntervalA();
+            intervalB = riSum.getIntervalB();
+            numOfRectsN = riSum.getNumOfRectangles();
+            sumType = riSum.getRiemmanSumType();
+
+            System.out.println("Loaded Riemman Sum from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }

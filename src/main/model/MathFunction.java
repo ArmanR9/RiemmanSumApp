@@ -195,7 +195,7 @@ public class MathFunction implements Writable {
         json.put("parsed function string", functionName);
         json.put("internal function iterator", iterator);
 
-        return new JSONObject();
+        return json;
     }
 
     // getters

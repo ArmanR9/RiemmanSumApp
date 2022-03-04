@@ -110,6 +110,7 @@ public class Computation implements Writable {
         json.put("interval a", intervalA);
         json.put("number of rectangles", numOfRectanglesN);
         json.put("delta x", deltaX);
+
         return json;
     }
 

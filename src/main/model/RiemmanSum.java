@@ -30,6 +30,15 @@ public class RiemmanSum implements Writable {
         this.currentFunction = new MathFunction(mathFuncType, mathFunction);
     }
 
+    // EFFECTS: Constructs Riemman Sum from JSON file generated data.
+    public RiemmanSum(int currentId, Computation currentComputationObj, MathFunction currentFunctionObj,
+                      List<Computation> compHistoryList) {
+        this.compId = currentId;
+        this.currentComputation = currentComputationObj;
+        this.currentFunction = currentFunctionObj;
+        this.computationHistory = compHistoryList;
+    }
+
     // MODIFIES: this
     // EFFECTS: Compute the Riemman Sum result for given riemman sum type (left, right, or mid)
     public double computeRiemmanSum() {
@@ -133,7 +142,7 @@ public class RiemmanSum implements Writable {
         json.put("computation function", currentFunction.toJson());
         json.put("computation history", computationListToJson());
 
-        return new JSONObject();
+        return json;
     }
 
     // EFFECTS: returns computation history as an JSON array object
@@ -147,9 +156,19 @@ public class RiemmanSum implements Writable {
         return computationsJsonArray;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets this.compId to id
+    public void setCompId(int id) {
+        this.compId = id;
+    }
+
     // getters
     public String getFunction() {
         return currentComputation.getComputationFunction();
+    }
+
+    public String getFunctionType() {
+        return currentComputation.getComputationFunctionType();
     }
 
     public double getIntervalB() {
@@ -162,6 +181,10 @@ public class RiemmanSum implements Writable {
 
     public int getNumOfRectangles() {
         return currentComputation.getNumOfRectanglesN();
+    }
+
+    public String getRiemmanSumType() {
+        return currentComputation.getRiemmanSumTypeString();
     }
 
     public double getDeltaX() {

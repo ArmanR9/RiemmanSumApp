@@ -1,0 +1,30 @@
+{
+    "current computation": {
+        "number of rectangles": 3,
+        "delta x": 0.3333333333333333,
+        "computation function": "sin(x)",
+        "computation number": 1,
+        "computation function type": "trigonometric",
+        "riemman sum type": "LEFT",
+        "interval b": 2,
+        "interval a": 1
+    },
+    "computation function": {
+        "parsed function string": "sin",
+        "internal function iterator": 3,
+        "function type": "TRIGONOMETRIC",
+        "unparsed function string": "sin(x)",
+        "vertical coefficient": 1
+    },
+    "computation history": [{
+        "number of rectangles": 3,
+        "delta x": 0.3333333333333333,
+        "computation function": "sin(x)",
+        "computation number": 1,
+        "computation function type": "trigonometric",
+        "riemman sum type": "LEFT",
+        "interval b": 2,
+        "interval a": 1
+    }],
+    "computation id": 2
+}
