@@ -5,16 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RiemmanSumGUI extends JFrame implements ActionListener {
+public class RiemmanSumGUI implements ActionListener {
+    private JFrame window;
     private JLabel functionEntryLabel;
     private JTextField functionEntryField;
 
-    public RiemmanSumGUI() {
-        super("Riemman Sum Calculator");
+    // multiple JButtons. One for Left Riemman, One for Midpoint Riemman, One for Right Riemman.
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(400, 400));
-        setLayout(new FlowLayout());
+
+    public RiemmanSumGUI() {
+        initializeSplashScreen();
+        initializeFrame();
 
 
         JButton testButton = new JButton("Confirm Function");
@@ -25,13 +26,37 @@ public class RiemmanSumGUI extends JFrame implements ActionListener {
         // You could also set a different object, if you wanted
         // a different object to respond to the button click
 
-        functionEntryLabel = new JLabel("Enter your function");
-        functionEntryField = new JTextField(5);
-        add(functionEntryLabel);
-        add(functionEntryField);
-        add(testButton);
-        pack();
-        setVisible(true);
+
+    }
+
+    private void initializeSplashScreen() {
+        JWindow splashWindow = new JWindow();
+        JLabel splashImage = new JLabel(new ImageIcon("./data/SplashScreen.png"));
+        splashWindow.getContentPane().add(splashImage, SwingConstants.CENTER);
+        splashWindow.setSize(450, 450);
+        splashWindow.setLocationRelativeTo(null);
+        splashWindow.setVisible(true);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        splashWindow.setVisible(false);
+        splashWindow.dispose();
+    }
+
+    private void initializeFrame() {
+        window = new JFrame();
+        window.setTitle("Riemman Sum Calculator");
+        window.setResizable(false);
+        window.setSize(500, 500);
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setIconImage(new ImageIcon("./data/RiemmanSumIcon.png").getImage());
+        //setLayout(new FlowLayout());
     }
 
     //This is the method that is called when the the JButton btn is clicked
