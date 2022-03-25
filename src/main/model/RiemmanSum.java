@@ -14,7 +14,7 @@ import java.util.List;
     of computations.
  */
 public class RiemmanSum implements Writable {
-    private int compId = 1;
+    private int compId;
     private List<Computation> computationHistory;
     private Computation currentComputation;
     private MathFunction currentFunction;
@@ -25,6 +25,7 @@ public class RiemmanSum implements Writable {
     //           n > 0
     // EFFECTS: Constructs Riemman Sum with user-inputted related function, interval, and partition values
     public RiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction, double a, double b, int n) {
+        this.compId = 1;
         this.computationHistory = new ArrayList<>();
         this.currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);
         this.currentFunction = new MathFunction(mathFuncType, mathFunction);
@@ -59,7 +60,8 @@ public class RiemmanSum implements Writable {
     // EFFECTS: Creates new Computation and MathFunction objects to do a new Riemman Sum computation
     public void addNewRiemmanSum(String riemmanSumType, String mathFuncType, String mathFunction,
                                  double a, double b, int n) {
-        currentComputation = new Computation(compId++, riemmanSumType, mathFuncType, mathFunction, a, b, n);
+        compId = computationHistory.size() + 1;
+        currentComputation = new Computation(compId, riemmanSumType, mathFuncType, mathFunction, a, b, n);
         this.currentFunction = new MathFunction(mathFuncType, mathFunction);
     }
 

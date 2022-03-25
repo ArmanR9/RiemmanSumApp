@@ -1,6 +1,5 @@
 package ui.tabs;
 
-import javafx.scene.chart.XYChart;
 import model.RiemmanSum;
 import org.json.JSONException;
 import persistence.JsonReader;
@@ -13,7 +12,17 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/*
+ Functionality for the main computing tab/window for calculating riemman sums, and loading/saving
+ JSON data from disk
+
+ NOTE:
+ The ComputingTab borrows a similar program structure from the SmartHome project in
+ https://github.students.cs.ubc.ca/CPSC210/LongFormProblemStarters
+ */
+
 public class ComputingTab extends JPanel implements ActionListener {
+    private static final String JSON_STORE = "./data/riemmanSumData.json";
 
     private DataTab dataTab;
 
@@ -47,20 +56,17 @@ public class ComputingTab extends JPanel implements ActionListener {
     private JLabel midpointSumPicture;
     private JLabel rightSumPicture;
 
-    private static final String JSON_STORE = "./data/riemmanSumData.json";
-
     private RiemmanSum riSum;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private boolean hasSaved;
 
-
+    // EFFECTS: Constructs all panels to necessitate Riemman Sum computation functionality in addition
+    //          to JSON writing/reading access
     public ComputingTab(DataTab dataTab) {
         super();
         createFnInputPanel();
         createBtnAndResultPanel();
         createSumTypePanel();
-
 
         this.setLayout(new BorderLayout());
         this.add(functionInputPanel, BorderLayout.WEST);
@@ -70,9 +76,10 @@ public class ComputingTab extends JPanel implements ActionListener {
         this.dataTab = dataTab;
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        hasSaved = false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the entire panel for inputting function properties (type, name, a, b, n)
     private void createFnInputPanel() {
         GridLayout panelGridLayoutForFn = new GridLayout(6, 2);
         panelGridLayoutForFn.setHgap(-200);
@@ -80,8 +87,7 @@ public class ComputingTab extends JPanel implements ActionListener {
 
         initializeLabels();
         initializeTextFields();
-        initializeFnTypeBox();
-        initializeSumTypeBox();
+        initializeAllTypeBoxes();
 
         functionInputPanel = new JPanel();
         functionInputPanel.setPreferredSize(new Dimension(450, 150));
@@ -101,6 +107,9 @@ public class ComputingTab extends JPanel implements ActionListener {
         functionInputPanel.add(riemmanSumSelector, riemmanSumType);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the entire panel for selecting riemman sum type, computing, loading, and saving
+    //          functionality
     private void createBtnAndResultPanel() {
         GridLayout panelGridLayoutForBtns = new GridLayout(2, 4);
         panelGridLayoutForBtns.setHgap(0);
@@ -118,6 +127,8 @@ public class ComputingTab extends JPanel implements ActionListener {
         buttonAndResultPanel.add(loadBtn);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the panel housing the riemman sum type picture visualization
     private void createSumTypePanel() {
         riemmanSumTypePanel = new JPanel();
         riemmanSumTypePanel.setPreferredSize(new Dimension(200, 220));
@@ -130,6 +141,8 @@ public class ComputingTab extends JPanel implements ActionListener {
         riemmanSumTypePanel.add(currentPicture);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes all JLabels with the relevant string fields
     private void initializeLabels() {
         blankRow = new JLabel("  ");
         fnInput = new JLabel("  Function:");
@@ -140,6 +153,8 @@ public class ComputingTab extends JPanel implements ActionListener {
         riemmanSumType = new JLabel("  Riemman Type:");
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes all JTextFields with the relevant size information
     private void initializeTextFields() {
         functionEntryField = new JTextField();
         functionEntryField.setPreferredSize(new Dimension(50, 25));
@@ -154,6 +169,8 @@ public class ComputingTab extends JPanel implements ActionListener {
         numOfRectsNField.setPreferredSize(new Dimension(20, 25));
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes all JButtons to be primed for an actionListener, and a relevant label
     private void initializeBtnsAndLabels() {
         computeBtn = new JButton("Compute Riemman Sum");
         saveBtn = new JButton("Save");
@@ -166,24 +183,26 @@ public class ComputingTab extends JPanel implements ActionListener {
         result = new JLabel(" Result:");
     }
 
-    private void initializeFnTypeBox() {
-        String[] functionTypes = { "Trigonometric", "Logarithmic", "Linear"};
+    // MODIFIES: this
+    // EFFECTS: initializes all JTypeBoxes with the relevant options, colour data,
+    //           and action listener attachment
+    private void initializeAllTypeBoxes() {
+        String[] functionTypes = {"Trigonometric", "Logarithmic", "Linear"};
+        String[] sumTypes = {"Left Riemman", "Midpoint Riemman", "Right Riemman"};
 
         functionTypeSelector = new JComboBox(functionTypes);
         functionTypeSelector.setBackground(new Color(190, 177, 177));
         functionTypeSelector.addActionListener(this);
         functionTypeSelector.setVisible(true);
-    }
-
-    private void initializeSumTypeBox() {
-        String[] sumTypes = { "Left Riemman", "Midpoint Riemman", "Right Riemman"};
 
         riemmanSumSelector = new JComboBox(sumTypes);
         riemmanSumSelector.setBackground(new Color(190, 177, 177));
-        riemmanSumSelector.addActionListener(e -> swapRiemmanPicture((String)riemmanSumSelector.getSelectedItem()));
+        riemmanSumSelector.addActionListener(e -> swapRiemmanPicture((String) riemmanSumSelector.getSelectedItem()));
         riemmanSumSelector.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: swaps out Riemman Sum Type picture (left, mid, right), based on current type selected by user
     private void swapRiemmanPicture(String sumType) {
         riemmanSumTypePanel.remove(currentPicture);
         riemmanSumTypePanel.revalidate();
@@ -200,6 +219,7 @@ public class ComputingTab extends JPanel implements ActionListener {
         riemmanSumTypePanel.add(currentPicture);
     }
 
+    // EFFECTS: produces true if any entry text field is not empty
     private boolean notEmpty() {
         boolean valid = true;
 
@@ -221,7 +241,9 @@ public class ComputingTab extends JPanel implements ActionListener {
         return valid;
     }
 
-    private boolean notValid() {
+    // EFFECTS: produces true if any of the text fields (a, b, and n) do not produce an invalid
+    //          result when parsing
+    private boolean notInvalid() {
 
         try {
             Double.parseDouble(intervalAEntryField.getText());
@@ -250,15 +272,17 @@ public class ComputingTab extends JPanel implements ActionListener {
         return true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: computes riemman sum and displays it on the result label in the GUI
     private void computeResult() {
         result.setText("Result: " + riSum.computeRiemmanSum());
     }
 
     // EFFECTS: saves the Riemman Sum to file and returns true if successful; false otherwise
-    private boolean saveRiemmanSum() {
+    private void saveRiemmanSum() {
 
         if (riSum == null) {
-            return false;
+            return;
         }
 
         try {
@@ -267,48 +291,44 @@ public class ComputingTab extends JPanel implements ActionListener {
             jsonWriter.close();
             JOptionPane.showMessageDialog(null, "Saved Riemman Sum to " + JSON_STORE,
                     "Save Successful", JOptionPane.INFORMATION_MESSAGE);
-            return true;
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Failed to save to " + JSON_STORE,
                     "Save Failed", JOptionPane.ERROR_MESSAGE);
-            return false;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: loads Riemman Sum from file and returns true if successful; false otherwise
-    private boolean loadRiemmanSum() {
+    private void loadRiemmanSum() {
         try {
             riSum = jsonReader.read();
             JOptionPane.showMessageDialog(null, "Loaded Riemman Sum from " + JSON_STORE,
                     "Load Successful", JOptionPane.INFORMATION_MESSAGE);
-            return true;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Failed to load data from " + JSON_STORE,
                     "Load Failed", JOptionPane.ERROR_MESSAGE);
-            return false;
         } catch (JSONException e) {
             JOptionPane.showMessageDialog(null, "Data is empty in " + JSON_STORE,
                     "Load Failed", JOptionPane.ERROR_MESSAGE);
-            return false;
         }
     }
 
-    //This is the method that is called when the the JButton btn is clicked
+    // MODIFIES: this
+    // EFFECTS: performs computation, save, and load operations when the appropriate buttons are pressed
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(computeBtn) && notValid() && notEmpty()) {
+        if (e.getSource().equals(computeBtn) && notInvalid() && notEmpty()) {
 
-            String sumType = (String)riemmanSumSelector.getSelectedItem();
-            String mathFunctionType = (String)functionTypeSelector.getSelectedItem();
+            String sumType = (String) riemmanSumSelector.getSelectedItem();
+            String mathFnType = (String) functionTypeSelector.getSelectedItem();
             double intervalA = Double.parseDouble(intervalAEntryField.getText());
             double intervalB = Double.parseDouble(intervalBEntryField.getText());
-            int numOfRectsN = Integer.parseInt(numOfRectsNField.getText());
+            int rectN = Integer.parseInt(numOfRectsNField.getText());
 
             if (riSum == null) {
-                riSum = new RiemmanSum(sumType, mathFunctionType, functionEntryField.getText(), intervalA, intervalB, numOfRectsN);
+                riSum = new RiemmanSum(sumType, mathFnType, functionEntryField.getText(), intervalA, intervalB, rectN);
                 dataTab.setRiemmanSum(riSum);
             } else {
-                riSum.addNewRiemmanSum(sumType, mathFunctionType, functionEntryField.getText(), intervalA, intervalB, numOfRectsN);
+                riSum.addNewRiemmanSum(sumType, mathFnType, functionEntryField.getText(), intervalA, intervalB, rectN);
             }
 
             computeResult();

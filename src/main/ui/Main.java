@@ -1,7 +1,5 @@
 package ui;
 
-import java.io.FileNotFoundException;
-
 /*
     Entry point for the program to begin
  */

@@ -5,15 +5,16 @@ import ui.tabs.DataTab;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-// idea. Have three imageicons. flip between having them visible or not visible when set to east side of
-// computing window
+/*
+ Main GUI class that instantiates the JFrame application window (including the splash screen),
+ and adds the relevant tabs and panels such as the computing tab and data tab to the
+ window's contents.
 
-// left riemman
-// mid riemman
-// right riemman
+ NOTE:
+ The SplashScreen implementation is largely modelled off of user Alya'a Gamal's implementation
+ https://stackoverflow.com/questions/16134549/how-to-make-a-splash-screen-for-gui
+ */
 
 public class RiemmanSumGUI {
     private static final int COMPUTING_TAB_INDEX = 0;
@@ -24,18 +25,7 @@ public class RiemmanSumGUI {
     private JPanel dataPanel;
     private JTabbedPane tabBar;
 
-    // jTavs
-    // jpanel for previous data
-    // another jpanel for maybe a graph?
-
-    // jpanel for the buttons, one for the textbox, and one for the data output
-    // multiple JButtons. One for Left Riemman, One for Midpoint Riemman, One for Right Riemman.
-    // buttons for saving and loading
-
-    // use border layout for the compute left,  right mid riemman sums
-
-    // use joptionpane for popups regarding errors
-
+    // EFFECTS: Initializes the application window and adds the computation and data panels to the main frame
     public RiemmanSumGUI() {
         initializeSplashScreen();
         initializeFrame();
@@ -59,6 +49,8 @@ public class RiemmanSumGUI {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: Creates a splash screen with the application logo that appears for ~1 second
     private void initializeSplashScreen() {
         JWindow splashWindow = new JWindow();
         JLabel splashImage = new JLabel(new ImageIcon("./data/SplashScreen.png"));
@@ -77,6 +69,8 @@ public class RiemmanSumGUI {
         splashWindow.dispose();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes JFrame window including setting its size, visibility, position, etc.
     private void initializeFrame() {
         window = new JFrame();
         window.setTitle("Riemman Sum Calculator");
