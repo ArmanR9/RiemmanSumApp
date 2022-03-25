@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import model.Computation;
 import model.RiemmanSum;
 
 import javax.swing.*;
@@ -10,11 +11,13 @@ import java.awt.event.ActionListener;
 public class DataTab extends JPanel implements ActionListener {
     private RiemmanSum currentRiemmanSum;
     private JScrollPane dataPane;
+    private JTextArea textArea;
 
     public DataTab() {
         super();
+
         this.setLayout(new BorderLayout());
-        JTextArea textArea = new JTextArea(5, 10);
+        textArea = new JTextArea(5, 10);
         textArea.setEditable(false);
         dataPane = new JScrollPane(textArea);
 
@@ -29,11 +32,25 @@ public class DataTab extends JPanel implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-      //  if (e.getSource().equals(computeBtn)) {
-      //      //   functionEntryLabel.setText("Your Riemman Sum has been computed!");
-      //  } else if (e.getSource().equals(functionTypeSelector)) {
-      //      System.out.println(functionTypeSelector.getSelectedItem());
-      //  }
+    public void setRiemmanSum(RiemmanSum sum) {
+        this.currentRiemmanSum = sum;
     }
+
+    public void actionPerformed(ActionEvent e) {
+        int historySize = currentRiemmanSum.getComputationHistorySize();
+        Computation c = currentRiemmanSum.getComputationHistory().get(historySize - 1);
+
+        textArea.append("\n");
+
+        for (String s : c.produceStats()) {
+            textArea.append(s);
+            textArea.append("\n");
+        }
+
+        textArea.append("-----------");
+        textArea.append("\n");
+    }
+
 }
+
+// dataTab needs to know about existence of compute button and load button

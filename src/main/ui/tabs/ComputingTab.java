@@ -1,6 +1,8 @@
 package ui.tabs;
 
+import javafx.scene.chart.XYChart;
 import model.RiemmanSum;
+import org.json.JSONException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -8,10 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ComputingTab extends JPanel implements ActionListener {
+
+    private DataTab dataTab;
 
     private JTextField functionEntryField;
     private JTextField intervalAEntryField;
@@ -51,7 +55,7 @@ public class ComputingTab extends JPanel implements ActionListener {
     private boolean hasSaved;
 
 
-    public ComputingTab() {
+    public ComputingTab(DataTab dataTab) {
         super();
         createFnInputPanel();
         createBtnAndResultPanel();
@@ -63,6 +67,7 @@ public class ComputingTab extends JPanel implements ActionListener {
         this.add(buttonAndResultPanel, BorderLayout.AFTER_LAST_LINE);
         this.add(riemmanSumTypePanel, BorderLayout.EAST);
 
+        this.dataTab = dataTab;
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         hasSaved = false;
@@ -151,9 +156,13 @@ public class ComputingTab extends JPanel implements ActionListener {
 
     private void initializeBtnsAndLabels() {
         computeBtn = new JButton("Compute Riemman Sum");
-        computeBtn.addActionListener(this);
         saveBtn = new JButton("Save");
         loadBtn = new JButton("Load");
+
+        computeBtn.addActionListener(this);
+        saveBtn.addActionListener(this);
+        loadBtn.addActionListener(this);
+
         result = new JLabel(" Result:");
     }
 
@@ -171,9 +180,7 @@ public class ComputingTab extends JPanel implements ActionListener {
 
         riemmanSumSelector = new JComboBox(sumTypes);
         riemmanSumSelector.setBackground(new Color(190, 177, 177));
-        riemmanSumSelector.addActionListener(e -> {
-            swapRiemmanPicture((String)riemmanSumSelector.getSelectedItem());
-        });
+        riemmanSumSelector.addActionListener(e -> swapRiemmanPicture((String)riemmanSumSelector.getSelectedItem()));
         riemmanSumSelector.setVisible(true);
     }
 
@@ -243,24 +250,78 @@ public class ComputingTab extends JPanel implements ActionListener {
         return true;
     }
 
+    private void computeResult() {
+        result.setText("Result: " + riSum.computeRiemmanSum());
+    }
+
+    // EFFECTS: saves the Riemman Sum to file and returns true if successful; false otherwise
+    private boolean saveRiemmanSum() {
+
+        if (riSum == null) {
+            return false;
+        }
+
+        try {
+            jsonWriter.open();
+            jsonWriter.write(riSum);
+            jsonWriter.close();
+            JOptionPane.showMessageDialog(null, "Saved Riemman Sum to " + JSON_STORE,
+                    "Save Successful", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Failed to save to " + JSON_STORE,
+                    "Save Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Riemman Sum from file and returns true if successful; false otherwise
+    private boolean loadRiemmanSum() {
+        try {
+            riSum = jsonReader.read();
+            JOptionPane.showMessageDialog(null, "Loaded Riemman Sum from " + JSON_STORE,
+                    "Load Successful", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load data from " + JSON_STORE,
+                    "Load Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } catch (JSONException e) {
+            JOptionPane.showMessageDialog(null, "Data is empty in " + JSON_STORE,
+                    "Load Failed", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 
     //This is the method that is called when the the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
-        System.out.println("yo 0");
         if (e.getSource().equals(computeBtn) && notValid() && notEmpty()) {
-            System.out.println("yo");
+
             String sumType = (String)riemmanSumSelector.getSelectedItem();
             String mathFunctionType = (String)functionTypeSelector.getSelectedItem();
             String mathFunction = functionEntryField.getText();
-            Double intervalA = Double.parseDouble(intervalAEntryField.getText());
-            Double intervalB = Double.parseDouble(intervalBEntryField.getText());
-            Integer numOfRectsN = Integer.parseInt(numOfRectsNField.getText());
+            double intervalA = Double.parseDouble(intervalAEntryField.getText());
+            double intervalB = Double.parseDouble(intervalBEntryField.getText());
+            int numOfRectsN = Integer.parseInt(numOfRectsNField.getText());
 
-            riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
-           // computeResult();
+            if (riSum == null) {
+                riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+                dataTab.setRiemmanSum(riSum);
+            } else {
+                riSum.addNewRiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+            }
+
+            computeResult();
+            dataTab.actionPerformed(e);
+
         } else if (e.getSource().equals(functionTypeSelector)) {
             swapRiemmanPicture((String) riemmanSumSelector.getSelectedItem());
             System.out.println(functionTypeSelector.getSelectedItem());
+        } else if (e.getSource().equals(saveBtn)) {
+            saveRiemmanSum();
+        } else if (e.getSource().equals(loadBtn)) {
+            loadRiemmanSum();
         }
     }
 }

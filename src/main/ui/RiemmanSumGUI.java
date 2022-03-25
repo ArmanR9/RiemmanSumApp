@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 // mid riemman
 // right riemman
 
-public class RiemmanSumGUI implements ActionListener {
+public class RiemmanSumGUI {
     private static final int COMPUTING_TAB_INDEX = 0;
     private static final int DATA_TAB_INDEX = 1;
 
@@ -41,9 +41,8 @@ public class RiemmanSumGUI implements ActionListener {
         initializeFrame();
 
         tabBar = new JTabbedPane();
-        calcPanel = new ComputingTab();
         dataPanel = new DataTab();
-
+        calcPanel = new ComputingTab((DataTab)dataPanel);
 
         tabBar.add(calcPanel, COMPUTING_TAB_INDEX);
         tabBar.setTitleAt(COMPUTING_TAB_INDEX, "Calculate");
@@ -90,12 +89,5 @@ public class RiemmanSumGUI implements ActionListener {
         window.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-      //  if (e.getSource().equals(computeBtn)) {
-            //   functionEntryLabel.setText("Your Riemman Sum has been computed!");
-     //   } else if (e.getSource().equals(functionTypeSelector)) {
-      //      System.out.println(functionTypeSelector.getSelectedItem());
-       // }
-    }
 
 }
