@@ -1,14 +1,17 @@
 package ui.tabs;
 
 import model.RiemmanSum;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class ComputingTab extends JPanel implements ActionListener {
-    private RiemmanSum currentRiemmanSum;
 
     private JTextField functionEntryField;
     private JTextField intervalAEntryField;
@@ -35,9 +38,18 @@ public class ComputingTab extends JPanel implements ActionListener {
     private JLabel riemmanSumType;
     private JLabel result;
 
+    private JLabel currentPicture;
     private JLabel leftSumPicture;
     private JLabel midpointSumPicture;
     private JLabel rightSumPicture;
+
+    private static final String JSON_STORE = "./data/riemmanSumData.json";
+
+    private RiemmanSum riSum;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private boolean hasSaved;
+
 
     public ComputingTab() {
         super();
@@ -50,6 +62,10 @@ public class ComputingTab extends JPanel implements ActionListener {
         this.add(functionInputPanel, BorderLayout.WEST);
         this.add(buttonAndResultPanel, BorderLayout.AFTER_LAST_LINE);
         this.add(riemmanSumTypePanel, BorderLayout.EAST);
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        hasSaved = false;
     }
 
     private void createFnInputPanel() {
@@ -105,8 +121,8 @@ public class ComputingTab extends JPanel implements ActionListener {
         leftSumPicture = new JLabel(new ImageIcon("./data/LeftRiemmanSumTwo.png"));
         midpointSumPicture = new JLabel(new ImageIcon("./data/MidpointSumTwo.png"));
 
-        riemmanSumTypePanel.add(rightSumPicture);
-        // need to add additional behavior here.
+        currentPicture = leftSumPicture;
+        riemmanSumTypePanel.add(currentPicture);
     }
 
     private void initializeLabels() {
@@ -135,6 +151,7 @@ public class ComputingTab extends JPanel implements ActionListener {
 
     private void initializeBtnsAndLabels() {
         computeBtn = new JButton("Compute Riemman Sum");
+        computeBtn.addActionListener(this);
         saveBtn = new JButton("Save");
         loadBtn = new JButton("Load");
         result = new JLabel(" Result:");
@@ -150,19 +167,99 @@ public class ComputingTab extends JPanel implements ActionListener {
     }
 
     private void initializeSumTypeBox() {
-        String[] sumTypes = { "Left Riemman", "Right Riemman", "Midpoint Riemman"};
+        String[] sumTypes = { "Left Riemman", "Midpoint Riemman", "Right Riemman"};
 
         riemmanSumSelector = new JComboBox(sumTypes);
         riemmanSumSelector.setBackground(new Color(190, 177, 177));
-        riemmanSumSelector.addActionListener(this);
+        riemmanSumSelector.addActionListener(e -> {
+            swapRiemmanPicture((String)riemmanSumSelector.getSelectedItem());
+        });
         riemmanSumSelector.setVisible(true);
     }
 
+    private void swapRiemmanPicture(String sumType) {
+        riemmanSumTypePanel.remove(currentPicture);
+        riemmanSumTypePanel.revalidate();
+        riemmanSumTypePanel.repaint();
+
+        if (sumType.toLowerCase().contains("right")) {
+            currentPicture = rightSumPicture;
+        } else if (sumType.toLowerCase().contains("mid")) {
+            currentPicture = midpointSumPicture;
+        } else {
+            currentPicture = leftSumPicture;
+        }
+
+        riemmanSumTypePanel.add(currentPicture);
+    }
+
+    private boolean notEmpty() {
+        boolean valid = true;
+
+        if (functionEntryField.getText().isEmpty()) {
+            valid = false;
+        } else if (intervalAEntryField.getText().isEmpty()) {
+            valid = false;
+        } else if (intervalBEntryField.getText().isEmpty()) {
+            valid = false;
+        } else if (numOfRectsNField.getText().isEmpty()) {
+            valid = false;
+        }
+
+        if (!valid) {
+            JOptionPane.showMessageDialog(null, "One or more fields are empty.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        return valid;
+    }
+
+    private boolean notValid() {
+
+        try {
+            Double.parseDouble(intervalAEntryField.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid A value", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        try {
+            Double.parseDouble(intervalBEntryField.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid B value", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        try {
+            Integer.parseInt(numOfRectsNField.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid N value", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+
     //This is the method that is called when the the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(computeBtn)) {
-            //   functionEntryLabel.setText("Your Riemman Sum has been computed!");
+        System.out.println("yo 0");
+        if (e.getSource().equals(computeBtn) && notValid() && notEmpty()) {
+            System.out.println("yo");
+            String sumType = (String)riemmanSumSelector.getSelectedItem();
+            String mathFunctionType = (String)functionTypeSelector.getSelectedItem();
+            String mathFunction = functionEntryField.getText();
+            Double intervalA = Double.parseDouble(intervalAEntryField.getText());
+            Double intervalB = Double.parseDouble(intervalBEntryField.getText());
+            Integer numOfRectsN = Integer.parseInt(numOfRectsNField.getText());
+
+            riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+           // computeResult();
         } else if (e.getSource().equals(functionTypeSelector)) {
+            swapRiemmanPicture((String) riemmanSumSelector.getSelectedItem());
             System.out.println(functionTypeSelector.getSelectedItem());
         }
     }
