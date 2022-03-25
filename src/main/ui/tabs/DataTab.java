@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DataTab extends JPanel implements ActionListener {
+public class DataTab extends JPanel {
     private RiemmanSum currentRiemmanSum;
     private JScrollPane dataPane;
     private JTextArea textArea;
@@ -23,20 +23,36 @@ public class DataTab extends JPanel implements ActionListener {
 
         this.add(dataPane);
 
-
-        /*
-        for(int i = 0; i < 100; ++i) {
-            textArea.append("ggg\n");
-        }
-         */
-
     }
 
     public void setRiemmanSum(RiemmanSum sum) {
         this.currentRiemmanSum = sum;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void printDataToGUI(boolean isLoadOperation) {
+        if (isLoadOperation && currentRiemmanSum != null) {
+            printFromLoadBtn();
+        } else if (currentRiemmanSum != null) {
+            printFromComputationBtn();
+        }
+    }
+
+    private void printFromLoadBtn() {
+        textArea.setText("");
+        textArea.append("\n");
+
+        for (Computation c : currentRiemmanSum.getComputationHistory()) {
+            for (String s : c.produceStats()) {
+                textArea.append(s);
+                textArea.append("\n");
+            }
+            textArea.append("-----------");
+            textArea.append("\n");
+        }
+
+    }
+
+    private void printFromComputationBtn() {
         int historySize = currentRiemmanSum.getComputationHistorySize();
         Computation c = currentRiemmanSum.getComputationHistory().get(historySize - 1);
 
@@ -50,7 +66,5 @@ public class DataTab extends JPanel implements ActionListener {
         textArea.append("-----------");
         textArea.append("\n");
     }
-
 }
 
-// dataTab needs to know about existence of compute button and load button

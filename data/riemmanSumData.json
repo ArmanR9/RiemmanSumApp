@@ -1,20 +1,20 @@
 {
       "current computation": {
-            "number of rectangles": 23,
-            "computation function": "3ln(x)",
-            "computation number": 2,
-            "computation function type": "logarithmic",
-            "riemman sum type": "MIDPOINT",
-            "computation result": 13.984579574623805,
-            "interval b": 5.6,
-            "interval a": 2
+            "number of rectangles": 100,
+            "computation function": "5sin(x)",
+            "computation number": 4,
+            "computation function type": "trigonometric",
+            "riemman sum type": "LEFT",
+            "computation result": 11.715177726436249,
+            "interval b": 231,
+            "interval a": 1
       },
       "computation function": {
-            "parsed function string": "ln",
-            "internal function iterator": 3,
-            "function type": "LOGARITHMIC",
-            "unparsed function string": "3ln(x)",
-            "vertical coefficient": 3
+            "parsed function string": "sin",
+            "internal function iterator": 4,
+            "function type": "TRIGONOMETRIC",
+            "unparsed function string": "5sin(x)",
+            "vertical coefficient": 5
       },
       "computation history": [
             {
@@ -36,7 +36,27 @@
                   "computation result": 13.984579574623805,
                   "interval b": 5.6,
                   "interval a": 2
+            },
+            {
+                  "number of rectangles": 100,
+                  "computation function": "5sin(x)",
+                  "computation number": 3,
+                  "computation function type": "trigonometric",
+                  "riemman sum type": "LEFT",
+                  "computation result": 4.780510198911945,
+                  "interval b": 2,
+                  "interval a": 1
+            },
+            {
+                  "number of rectangles": 100,
+                  "computation function": "5sin(x)",
+                  "computation number": 4,
+                  "computation function type": "trigonometric",
+                  "riemman sum type": "LEFT",
+                  "computation result": 11.715177726436249,
+                  "interval b": 231,
+                  "interval a": 1
             }
       ],
-      "computation id": 3
+      "computation id": 5
 }

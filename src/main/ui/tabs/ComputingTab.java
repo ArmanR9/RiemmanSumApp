@@ -300,28 +300,28 @@ public class ComputingTab extends JPanel implements ActionListener {
 
             String sumType = (String)riemmanSumSelector.getSelectedItem();
             String mathFunctionType = (String)functionTypeSelector.getSelectedItem();
-            String mathFunction = functionEntryField.getText();
             double intervalA = Double.parseDouble(intervalAEntryField.getText());
             double intervalB = Double.parseDouble(intervalBEntryField.getText());
             int numOfRectsN = Integer.parseInt(numOfRectsNField.getText());
 
             if (riSum == null) {
-                riSum = new RiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+                riSum = new RiemmanSum(sumType, mathFunctionType, functionEntryField.getText(), intervalA, intervalB, numOfRectsN);
                 dataTab.setRiemmanSum(riSum);
             } else {
-                riSum.addNewRiemmanSum(sumType, mathFunctionType, mathFunction, intervalA, intervalB, numOfRectsN);
+                riSum.addNewRiemmanSum(sumType, mathFunctionType, functionEntryField.getText(), intervalA, intervalB, numOfRectsN);
             }
 
             computeResult();
-            dataTab.actionPerformed(e);
+            dataTab.printDataToGUI(false);
 
         } else if (e.getSource().equals(functionTypeSelector)) {
             swapRiemmanPicture((String) riemmanSumSelector.getSelectedItem());
-            System.out.println(functionTypeSelector.getSelectedItem());
         } else if (e.getSource().equals(saveBtn)) {
             saveRiemmanSum();
         } else if (e.getSource().equals(loadBtn)) {
             loadRiemmanSum();
+            dataTab.setRiemmanSum(riSum);
+            dataTab.printDataToGUI(true);
         }
     }
 }
