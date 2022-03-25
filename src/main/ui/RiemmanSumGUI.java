@@ -1,9 +1,18 @@
 package ui;
 
+import ui.tabs.ComputingTab;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+// idea. Have three imageicons. flip between having them visible or not visible when set to east side of
+// computing window
+
+// left riemman
+// mid riemman
+// right riemman
 
 public class RiemmanSumGUI implements ActionListener {
     private JFrame window;
@@ -19,8 +28,10 @@ public class RiemmanSumGUI implements ActionListener {
     private JButton saveBtn;
     private JButton loadBtn;
 
+    private JPanel calcPanel;
     private JPanel functionInputPanel;
     private JPanel buttonAndResultPanel;
+    private JPanel riemmanSumTypePanel;
     private JTabbedPane tabBar;
 
     // jTavs
@@ -38,10 +49,10 @@ public class RiemmanSumGUI implements ActionListener {
     public RiemmanSumGUI() {
         initializeSplashScreen();
         initializeFrame();
-        initializeFnTypeBox();
+      /*  initializeFnTypeBox();
         initializeSumTypeBox();
 
-        GridLayout testGridLayout = new GridLayout(5, 2);
+        GridLayout testGridLayout = new GridLayout(6, 2);
         testGridLayout.setHgap(-200);
         testGridLayout.setVgap(0);
 
@@ -61,11 +72,15 @@ public class RiemmanSumGUI implements ActionListener {
 
         numOfRectsNField = new JTextField();
         numOfRectsNField.setPreferredSize(new Dimension(20, 25));
+        */
 
         tabBar = new JTabbedPane();
-        tabBar.setPreferredSize(new Dimension(460, 50));
+        calcPanel = new ComputingTab();
+        /*
+        calcPanel.setLayout(new BorderLayout());
         functionInputPanel = new JPanel();
         buttonAndResultPanel = new JPanel();
+        riemmanSumTypePanel = new JPanel();
 
         JLabel blankRow = new JLabel("  ");
 
@@ -73,7 +88,7 @@ public class RiemmanSumGUI implements ActionListener {
         JLabel fnType = new JLabel("  Function Type:");
         JLabel intervalAValue = new JLabel("  Lower Limit (A):");
         JLabel intervalBValue = new JLabel("  Upper Limit (B):");
-        JLabel numOfRectsN = new JLabel(" N Value (rectangle count):");
+        JLabel numOfRectsN = new JLabel("  Rectangles (N):");
         JLabel riemmanSumType = new JLabel("  Riemman Type:");
         JLabel result = new JLabel(" Result:");
 
@@ -98,6 +113,9 @@ public class RiemmanSumGUI implements ActionListener {
         functionInputPanel.add(intervalBValue);
         functionInputPanel.add(intervalBEntryField);
 
+        functionInputPanel.add(numOfRectsN);
+        functionInputPanel.add(numOfRectsNField);
+
         functionInputPanel.add(riemmanSumType);
         functionInputPanel.add(riemmanSumSelector, riemmanSumType);
 
@@ -110,17 +128,28 @@ public class RiemmanSumGUI implements ActionListener {
         buttonAndResultPanel.add(saveBtn);
         buttonAndResultPanel.add(loadBtn);
 
-        tabBar.setTabPlacement(JTabbedPane.TOP);
+        riemmanSumTypePanel.setPreferredSize(new Dimension(200, 220));
+        riemmanSumTypePanel.add(new JLabel(new ImageIcon("./data/RightRiemmanSumTwo.png")));
+
+        calcPanel.add(functionInputPanel, BorderLayout.WEST);
+        calcPanel.add(buttonAndResultPanel, BorderLayout.AFTER_LAST_LINE);
+        calcPanel.add(riemmanSumTypePanel, BorderLayout.EAST);
+
+       // tabBar.setTabPlacement(JTabbedPane.TOP);
+        */
+
+        tabBar.add(calcPanel, 0);
+        tabBar.setTitleAt(0, "Calculate");
+        tabBar.setBackgroundAt(0, Color.BLACK);
+        tabBar.setVisible(true);
+
+
         window.add(tabBar, BorderLayout.NORTH);
-        window.add(functionInputPanel, BorderLayout.WEST);
-        window.add(buttonAndResultPanel, BorderLayout.AFTER_LAST_LINE);
+      //  window.add(calcPanel);
+      //  window.add(functionInputPanel, BorderLayout.WEST);
+      //  window.add(buttonAndResultPanel, BorderLayout.AFTER_LAST_LINE);
+      //  window.add(riemmanSumTypePanel, BorderLayout.EAST);
         window.pack();
-
-        // so that when the btn is clicked,
-        // this.actionPerformed(ActionEvent e) will be called.
-        // You could also set a different object, if you wanted
-        // a different object to respond to the button click
-
 
     }
 
