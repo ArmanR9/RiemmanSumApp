@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /*
  Functionality for the main computing tab/window for calculating riemman sums, and loading/saving
- JSON data from disk
+ JSON data of Riemman Sum computation history from disk
 
  NOTE:
  The ComputingTab borrows a similar program structure from the SmartHome project in
@@ -42,7 +42,6 @@ public class ComputingTab extends JPanel implements ActionListener {
     private JPanel buttonAndResultPanel;
     private JPanel riemmanSumTypePanel;
 
-    private JLabel blankRow;
     private JLabel fnInput;
     private JLabel fnType;
     private JLabel intervalAValue;
@@ -144,7 +143,6 @@ public class ComputingTab extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes all JLabels with the relevant string fields
     private void initializeLabels() {
-        blankRow = new JLabel("  ");
         fnInput = new JLabel("  Function:");
         fnType = new JLabel("  Function Type:");
         intervalAValue = new JLabel("  Lower Limit (A):");

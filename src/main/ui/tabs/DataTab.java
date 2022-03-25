@@ -41,7 +41,6 @@ public class DataTab extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         this.add(dataPane, BorderLayout.NORTH);
         this.add(removeBtn, BorderLayout.AFTER_LAST_LINE);
-
     }
 
     // MODIFIES: this
@@ -51,7 +50,8 @@ public class DataTab extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: performs computation, save, and load operations when the appropriate buttons are pressed
+    // EFFECTS: performs a removal of the newest riemman sum computation when the remove
+    //          button is pressed
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(removeBtn)) {
             int historySize = currentRiemmanSum.getComputationHistorySize();

@@ -1,42 +1,52 @@
 {
       "current computation": {
-            "number of rectangles": 50,
-            "computation function": "3x",
-            "computation number": 2,
+            "number of rectangles": 40,
+            "computation function": "-90x",
+            "computation number": 3,
             "computation function type": "linear",
-            "riemman sum type": "MIDPOINT",
-            "computation result": 900,
-            "interval b": 25,
-            "interval a": -5
+            "riemman sum type": "RIGHT",
+            "computation result": 23371.875,
+            "interval b": -10,
+            "interval a": -25
       },
       "computation function": {
-            "parsed function string": "3x",
-            "internal function iterator": 1,
+            "parsed function string": "-90x",
+            "internal function iterator": 3,
             "function type": "LINEAR",
-            "unparsed function string": "3x",
-            "vertical coefficient": 3
+            "unparsed function string": "-90x",
+            "vertical coefficient": -90
       },
       "computation history": [
             {
-                  "number of rectangles": 50,
-                  "computation function": "2ln(x)",
+                  "number of rectangles": 10,
+                  "computation function": "3sin(x)",
                   "computation number": 1,
-                  "computation function type": "logarithmic",
+                  "computation function type": "trigonometric",
                   "riemman sum type": "LEFT",
-                  "computation result": 0.7586924460729283,
-                  "interval b": 2,
+                  "computation result": 5.950538218343094,
+                  "interval b": 3.141519,
+                  "interval a": 0
+            },
+            {
+                  "number of rectangles": 27,
+                  "computation function": "-2ln(x)",
+                  "computation number": 2,
+                  "computation function type": "logarithmic",
+                  "riemman sum type": "MIDPOINT",
+                  "computation result": -23.55650902856313,
+                  "interval b": 9,
                   "interval a": 1
             },
             {
-                  "number of rectangles": 50,
-                  "computation function": "3x",
-                  "computation number": 2,
+                  "number of rectangles": 40,
+                  "computation function": "-90x",
+                  "computation number": 3,
                   "computation function type": "linear",
-                  "riemman sum type": "MIDPOINT",
-                  "computation result": 900,
-                  "interval b": 25,
-                  "interval a": -5
+                  "riemman sum type": "RIGHT",
+                  "computation result": 23371.875,
+                  "interval b": -10,
+                  "interval a": -25
             }
       ],
-      "computation id": 2
+      "computation id": 3
 }

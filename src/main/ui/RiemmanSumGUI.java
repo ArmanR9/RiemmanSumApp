@@ -50,7 +50,7 @@ public class RiemmanSumGUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: Creates a splash screen with the application logo that appears for ~1 second
+    // EFFECTS: Creates a splash screen with the application logo that appears for ~1.5 second
     private void initializeSplashScreen() {
         JWindow splashWindow = new JWindow();
         JLabel splashImage = new JLabel(new ImageIcon("./data/SplashScreen.png"));
