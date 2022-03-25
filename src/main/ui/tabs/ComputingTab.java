@@ -278,7 +278,7 @@ public class ComputingTab extends JPanel implements ActionListener {
         result.setText("Result: " + riSum.computeRiemmanSum());
     }
 
-    // EFFECTS: saves the Riemman Sum to file and returns true if successful; false otherwise
+    // EFFECTS: saves the Riemman Sum to json file in data folder
     private void saveRiemmanSum() {
 
         if (riSum == null) {
@@ -298,7 +298,7 @@ public class ComputingTab extends JPanel implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads Riemman Sum from file and returns true if successful; false otherwise
+    // EFFECTS: loads Riemman Sum from json file in data folder
     private void loadRiemmanSum() {
         try {
             riSum = jsonReader.read();
