@@ -118,7 +118,7 @@ public class RiemmanSum implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: Computes mid Riemman sum and adds it to computationHistory
+    // EFFECTS: computes mid Riemman sum and adds it to computationHistory
     private double computeMidSum() {
         double a = currentComputation.getIntervalA();
         double dx = currentComputation.getDeltaX();
@@ -133,6 +133,16 @@ public class RiemmanSum implements Writable {
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
         return sum;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes newest computation from Riemman Sum Computation history
+    public void removeNewestComputation() {
+        int historySize = this.getComputationHistorySize();
+
+        if (historySize > 0) {
+            this.getComputationHistory().remove(historySize - 1);
+        }
     }
 
     // EFFECTS: returns RiemmanSum object as an JSON object

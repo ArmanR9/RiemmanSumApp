@@ -142,6 +142,24 @@ class RiemmanSumTest {
         assertEquals(5, testSumSin.getCompId());
     }
 
+    @Test
+    void testRemovingNewestSum() {
+        assertEquals(0, testSumSin.getComputationHistorySize());
+        testSumSin.removeNewestComputation();
+        assertEquals(0, testSumSin.getComputationHistorySize());
+
+        testSumSin.computeRiemmanSum();
+        assertEquals(1, testSumSin.getComputationHistorySize());
+
+        testSumSin.recomputeAdjustedSum(10, "right");
+
+        assertEquals(2, testSumSin.getComputationHistorySize());
+        testSumSin.removeNewestComputation();
+        assertEquals(1, testSumSin.getComputationHistorySize());
+        testSumSin.removeNewestComputation();
+        assertEquals(0, testSumSin.getComputationHistorySize());
+    }
+
     private void constructionTestHelper(RiemmanSum testObj, double a, double b, int n, String func) {
         assertEquals(a, testObj.getIntervalA());
         assertEquals(b, testObj.getIntervalB());

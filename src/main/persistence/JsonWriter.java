@@ -35,6 +35,7 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of Riemman Sum to file
     public void write(RiemmanSum riSum) {
+        // here is where the saving happens
         JSONObject json = riSum.toJson();
         writer.print(json.toString(TAB));
     }

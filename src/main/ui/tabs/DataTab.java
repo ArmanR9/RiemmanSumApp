@@ -54,12 +54,8 @@ public class DataTab extends JPanel implements ActionListener {
     //          button is pressed
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(removeBtn) && currentRiemmanSum != null) {
-            int historySize = currentRiemmanSum.getComputationHistorySize();
-
-            if (historySize > 0) {
-                currentRiemmanSum.getComputationHistory().remove(historySize - 1);
-                printFromLoadBtn();
-            }
+            currentRiemmanSum.removeNewestComputation();
+            printFromLoadBtn();
         }
     }
 
