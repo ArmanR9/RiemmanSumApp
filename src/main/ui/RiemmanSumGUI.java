@@ -1,10 +1,14 @@
 package ui;
 
+import model.EventLog;
+import model.Event;
 import ui.tabs.ComputingTab;
 import ui.tabs.DataTab;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /*
  Main GUI class that instantiates the JFrame application window (including the splash screen),
@@ -81,6 +85,15 @@ public class RiemmanSumGUI {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setIconImage(new ImageIcon("./data/RiemmanSumIcon.png").getImage());
         window.setVisible(true);
+
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event: EventLog.getInstance()) {
+                    System.out.println(event.toString() + "\n");
+                }
+            }
+        });
     }
 
 

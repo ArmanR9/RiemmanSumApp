@@ -87,6 +87,7 @@ public class RiemmanSum implements Writable {
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
+        int curCompId;
 
         for (int i = 1; i <= n; ++i) {
             sum += this.computeFunctionAtX(a + ((double)i * dx));
@@ -95,6 +96,11 @@ public class RiemmanSum implements Writable {
         sum *= dx;
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
+        curCompId = getComputationHistorySize();
+        String eventDesc = "Added Computation #" + curCompId
+                + " of name: " + currentFunction.getFunction()
+                + " and type: right sum to Riemman Sum Computation history.";
+        EventLog.getInstance().logEvent(new Event(eventDesc));
         return sum;
     }
 
@@ -105,6 +111,7 @@ public class RiemmanSum implements Writable {
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
+        int curCompId;
 
         for (int i = 1; i <= n; ++i) {
             sum += this.computeFunctionAtX(a + ((double)(i - 1) * dx));
@@ -114,6 +121,11 @@ public class RiemmanSum implements Writable {
 
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
+        curCompId = getComputationHistorySize();
+        String eventDesc = "Added Computation #" + curCompId
+                + " of name: " + currentFunction.getFunction()
+                + " and type: left sum to Riemman Sum Computation history.";
+        EventLog.getInstance().logEvent(new Event(eventDesc));
         return sum;
     }
 
@@ -124,6 +136,7 @@ public class RiemmanSum implements Writable {
         double dx = currentComputation.getDeltaX();
         int n = currentComputation.getNumOfRectanglesN();
         double sum = 0.0;
+        int curCompId;
 
         for (int i = 1; i <= n; ++i) {
             sum += this.computeFunctionAtX(a + ((double)(i - 0.5f) * dx));
@@ -132,6 +145,11 @@ public class RiemmanSum implements Writable {
         sum *= dx;
         currentComputation.setComputationResult(sum);
         computationHistory.add(currentComputation);
+        curCompId = getComputationHistorySize();
+        String eventDesc = "Added Computation #" + curCompId
+                + " of name: " + currentFunction.getFunction()
+                + " and type: midpoint sum to Riemman Sum Computation history.";
+        EventLog.getInstance().logEvent(new Event(eventDesc));
         return sum;
     }
 
@@ -142,6 +160,10 @@ public class RiemmanSum implements Writable {
 
         if (historySize > 0) {
             this.getComputationHistory().remove(historySize - 1);
+            String eventDesc = "Removed Computation #" + historySize
+                    + " of name: " + currentFunction.getFunction() + " and type: " + getRiemmanSumType()
+                    + " sum to Riemman Sum Computation history.";
+            EventLog.getInstance().logEvent(new Event(eventDesc));
         }
     }
 
