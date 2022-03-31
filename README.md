@@ -44,8 +44,10 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 
 - As a user, I want to be able to compute left, right, midpoint sums.
 - As a user, I want to add a Riemman Sum computation to a history of previous computations and view them.
+- As a user, I want to remove the latest Riemman Sum computation from a history of previous computations.
 - As a user, I want to be able to input basic fundamental trigonometric, logarithmic, or linear function to compute my Riemman sum.
 - As a user, I want to be able to adjust the n value used in the most recent Riemman Sum calculation without having to input the function in again and then compare the new and old results.
 - As a user, I want to save my current Riemman Sum computation and computation history to file.
 - As a user, I want to load my current Riemman Sum computation and computation history from file.
 
+### 5. "Phase 4: Task 2
