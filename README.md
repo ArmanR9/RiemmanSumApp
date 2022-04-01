@@ -2,7 +2,7 @@
 
 ## A mathematical tool designed to compute left, midpoint, right riemman sums.
 
-The following is addresed in this README:
+The following is addressed in this README:
 - Limitations
 - What will this application do?
 - Who will use it?
@@ -13,7 +13,7 @@ The following is addresed in this README:
 
 ### 0. Limitations
 
-Currently the Riemman Sum Calculator can only compute functions of the type
+Currently, the Riemman Sum Calculator can only compute functions of the type
 - Fundamental trigonometric operations (sin, cos, tan)
 - log and ln(x)
 - linear functions 
@@ -34,7 +34,7 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 
 ### 2. Who will use it?
 
-- At the moment, I'm doing an Integral Calculus course, so this tool will be very benefical for me to both practice Riemman Sums, and also checking my work using them. It will also serve as a visual aid as it will shorten the time to see all three Left, Midpoint, and Right Riemman Sums at once, and then compare the differences between them.
+- At the moment, I'm doing an Integral Calculus course, so this tool will be very beneficial for me to both practice Riemman Sums, and also checking my work using them. It will also serve as a visual aid as it will shorten the time to see all three Left, Midpoint, and Right Riemman Sums at once, and then compare the differences between them.
 - Other Integral Calculus students who are just starting to learn about integrals can also leverage this tool to understand how Riemman Sums work, which ones are more accurate, and ultimately what an integral really is.
 
 ### 3. Why is this project of interest to you?
@@ -105,19 +105,19 @@ Removed Computation #1 of name: 5sin(x) and type: left sum to Riemman Sum Comput
 
 **Design Reflection:** Overall, I'm quite satisfied with the design of my application, however, it still can be improved substantially.
 I think my program's design could be revamped to use design patterns (like the Observer pattern), abstract classes, and
-a more robust approach to function implementations with utilities such as exceptions. These are some things I would refactor in
+a more robust approach to the implementation of certain functions with utilities such as exceptions. These are some things I would refactor in
 my current application to be better designed:
 
 - Apply the Observer pattern to the DataTab GUI class, and to the RiemmanSum class. 
-  - RiemmanSum would be an Observable, and will notify and update the Observer, DataTab once a new RiemmanSum is added or removed. 
-  - This will allow for a cleaner implementation as there's currently a non-favourable amount of coupling between the ComputingTab and DataTab to ensure DataTab is aware of when an RiemmanSum object is updated. 
-  - It will also make room for scalability in feature complexity within the GUI (like a graphical visualizer) as they may require information on the current Riemman Sum's status.
+  - RiemmanSum would be an Observable and will notify and update the Observer, DataTab once a new RiemmanSum is added or removed. 
+  - This will allow for a cleaner implementation as there's currently a non-favourable amount of coupling between the ComputingTab and DataTab so that DataTab is always aware of when the current RiemmanSum object is updated. 
+  - It will also make room for scalability in feature complexity within the GUI (like a graphical visualizer) as those features may require information on the current Riemman Sum's status.
   
   <br />
 - Refactor the MathFunction class' methods to be more robust. 
-  - Utilize exceptions like ArithmeticExceptions when the MathFunction encounters values in its domain that produce undefined values, so it can be relayed to the user for changing.
+  - Utilize exceptions like ArithmeticExceptions for when the MathFunction encounters values in its domain that produce undefined values, so it can be relayed to the user for fixing.
   - Utilize something along the lines of a WrongFunctionType exception to handle and avoid the cases where it tries to parse the wrong type of function and crashes (i.e., parsing a "linear function" when in reality it is a trigonometric function.)
-  - Making this class more robust will enable the user be notified of their mistake, so they can fix the problem instead of the program having to terminate.
+  - Making this class more robust will enable the user to be notified of their mistakes and fix these issues instead of the program having to terminate.
   
   <br />
 - Refactor MathFunction into an abstract class, and then introduce new subclasses such as LinearFunctions, LogarithmicFunctions, TrigonometricFunctions, etc.
