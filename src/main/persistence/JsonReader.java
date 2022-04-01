@@ -1,8 +1,6 @@
 package persistence;
 
-import model.Computation;
-import model.MathFunction;
-import model.RiemmanSum;
+import model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +76,13 @@ public class JsonReader {
         double b = computationObj.getDouble("interval b");
         int n = computationObj.getInt("number of rectangles");
         double computationResult = computationObj.getDouble("computation result");
+
+        if (isParsingComputationHistory) {
+            String eventDesc = "Added Computation #" + compId
+                    + " of name: " + function
+                    + " and type: " + sumType.toLowerCase() + " sum to Riemman Sum Computation history.";
+            EventLog.getInstance().logEvent(new Event(eventDesc));
+        }
 
         Computation parsedComputation = new Computation(compId, sumType, funcType, function, a, b, n);
         parsedComputation.setComputationResult(computationResult);
