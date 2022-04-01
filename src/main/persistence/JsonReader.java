@@ -33,7 +33,6 @@ public class JsonReader {
     // EFFECTS: reads RiemmanSum from file and returns it;
     // throws IOException if an error occurs reading data from file
     public RiemmanSum read() throws IOException, JSONException {
-        // here is where the loading happens
         String jsonData = readFile(src);
         JSONObject jsonObject = new JSONObject(jsonData);
         return parseRiemmanSum(jsonObject);

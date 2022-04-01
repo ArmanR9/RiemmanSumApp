@@ -51,3 +51,7 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 - As a user, I want to load my current Riemman Sum computation and computation history from file.
 
 ### 5. "Phase 4: Task 2
+
+
+### 6. "Phase 4: Task 3
+

@@ -5,7 +5,6 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /*
     Computation class that houses all statistics about
