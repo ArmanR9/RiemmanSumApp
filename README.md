@@ -7,6 +7,9 @@ The following is addresed in this README:
 - What will this application do?
 - Who will use it?
 - Why is this project of interest to you?
+- Phase 4: Task 2
+- Phase 4: Task 3
+- Moving Forward
 
 ### 0. Limitations
 
@@ -50,7 +53,7 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 - As a user, I want to save my current Riemman Sum computation and computation history to file.
 - As a user, I want to load my current Riemman Sum computation and computation history from file.
 
-### 5. "Phase 4: Task 2
+### 5. Phase 4: Task 2
 A representative example of how events related to the adding and removing of Xs (Computations) to Y (RiemmanSum) are logged
 in the application.
 ```
@@ -97,5 +100,40 @@ Thu Mar 31 20:10:29 PDT 2022
 Removed Computation #1 of name: 5sin(x) and type: left sum to Riemman Sum Computation history.
 ```
 
-### 6. "Phase 4: Task 3
+### 6. Phase 4: Task 3
+
+
+**Design Reflection:** Overall, I'm quite satisfied with the design of my application, however, it still can be improved substantially.
+I think my program's design could be revamped to use design patterns (like the Observer pattern), abstract classes, and
+a more robust approach to function implementations with utilities such as exceptions. These are some things I would refactor in
+my current application to be better designed:
+
+- Apply the Observer pattern to the DataTab GUI class, and to the RiemmanSum class. 
+  - RiemmanSum would be an Observable, and will notify and update the Observer, DataTab once a new RiemmanSum is added or removed. 
+  - This will allow for a cleaner implementation as there's currently a non-favourable amount of coupling between the ComputingTab and DataTab to ensure DataTab is aware of when an RiemmanSum object is updated. 
+  - It will also make room for scalability in feature complexity within the GUI (like a graphical visualizer) as they may require information on the current Riemman Sum's status.
+  
+  <br />
+- Refactor the MathFunction class' methods to be more robust. 
+  - Utilize exceptions like ArithmeticExceptions when the MathFunction encounters values in its domain that produce undefined values, so it can be relayed to the user for changing.
+  - Utilize something along the lines of a WrongFunctionType exception to handle and avoid the cases where it tries to parse the wrong type of function and crashes (i.e., parsing a "linear function" when in reality it is a trigonometric function.)
+  - Making this class more robust will enable the user be notified of their mistake, so they can fix the problem instead of the program having to terminate.
+  
+  <br />
+- Refactor MathFunction into an abstract class, and then introduce new subclasses such as LinearFunctions, LogarithmicFunctions, TrigonometricFunctions, etc.
+    - Make MathFunction an abstract class that houses similar behavior among all the different types of functions like the vertical coefficient parser, computing function at x, function type and name getters, etc. to avoid code duplication.
+    - Split MathFunction into several subclasses like LinearFunction that extend MathFunction so their contents only contains core parsing functionality is focused to that specific function type.
+    - This fixes the issue of bloating one class with parsing functionality for every supported function type, and makes for more readable classes.
+
+### 7. Moving Forward
+There's still some things I would like to add to this application, but were too complex for me to do so initially.
+
+One is making a proper function parser that stores the symbols of
+a function in a stack data structure (when parsing in reverse polish notation). This will enable for higher levels of support on the ranges of functions possible
+including additional terms, horizontal scaling coefficients, and more.
+
+Another thing I really want to implement is a graphical visualizer that plots the
+function over the selected domain, and then draws left, right, or midpoint rectangles over the function's graph. A visualizer is key to make a Riemman Sum calculator
+illustrative of how accurate your approximated integral really is.
+
 
