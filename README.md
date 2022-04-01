@@ -104,32 +104,32 @@ Removed Computation #1 of name: 5sin(x) and type: left sum to Riemman Sum Comput
 
 
 **Design Reflection:** Overall, I'm quite satisfied with the design of my application, however, it still can be improved substantially.
-I think my program's design could be revamped to use design patterns (like the Observer pattern), abstract classes, and
-a more robust approach to the implementation of certain functions with utilities such as exceptions. These are some things I would refactor in
+I think my program's design could be revamped to use design patterns, abstract classes, and
+a more robust approach to building classes with utilities such as exceptions. These are some things I would refactor in
 my current application to be better designed:
 
-- Apply the Observer pattern to the DataTab GUI class, and to the RiemmanSum class. 
-  - RiemmanSum would be an Observable and will notify and update the Observer, DataTab once a new RiemmanSum is added or removed. 
-  - This will allow for a cleaner implementation as there's currently a non-favourable amount of coupling between the ComputingTab and DataTab so that DataTab is always aware of when the current RiemmanSum object is updated. 
-  - It will also make room for scalability in feature complexity within the GUI (like a graphical visualizer) as those features may require information on the current Riemman Sum's status.
+- Apply the Observer pattern to the DataTab and RiemmanSum classes. 
+  - Turn RiemmanSum into an Observable and DataTab into an Observer. Then, once a new computation is added or removed, RiemmanSum will notify and update DataTab of these changes.
+  - This will allow for a cleaner implementation as there's currently a non-favourable amount of coupling between the ComputingTab and DataTab in order for DataTab to always be aware of when the current RiemmanSum object is updated. 
+  - It will also make room for scalability in feature complexity within the GUI (like a graphical visualizer) as those features may require information on the current RiemmanSum's status.
   
   <br />
 - Refactor the MathFunction class' methods to be more robust. 
-  - Utilize exceptions like ArithmeticExceptions for when the MathFunction encounters values in its domain that produce undefined values, so it can be relayed to the user for fixing.
+  - Utilize exceptions like ArithmeticExceptions for when the MathFunction encounters values in its domain that produce undefined values.
   - Utilize something along the lines of a WrongFunctionType exception to handle and avoid the cases where it tries to parse the wrong type of function and crashes (i.e., parsing a "linear function" when in reality it is a trigonometric function.)
-  - Making this class more robust will enable the user to be notified of their mistakes and fix these issues instead of the program having to terminate.
+  - Making this class more robust will enable the user to be notified of their mistakes for fixing, instead of the program having to crash.
   
   <br />
 - Refactor MathFunction into an abstract class, and then introduce new subclasses such as LinearFunctions, LogarithmicFunctions, TrigonometricFunctions, etc.
-    - Make MathFunction an abstract class that houses similar behavior among all the different types of functions like the vertical coefficient parser, computing function at x, function type and name getters, etc. to avoid code duplication.
-    - Split MathFunction into several subclasses like LinearFunction that extend MathFunction so their contents only contains core parsing functionality is focused to that specific function type.
-    - This fixes the issue of bloating one class with parsing functionality for every supported function type, and makes for more readable classes.
+    - Make MathFunction an abstract class that houses similar behavior among all the different types of functions, avoiding code duplication by making utilities such as the vertical coefficient parser, computing function at x, function type and name getters, etc. contained in the superclass.
+    - Split MathFunction into several subclasses like LinearFunction that extend MathFunction so their contents only contains core parsing functionality that is focused to that specific function type.
+    - These changes fix the issue of bloating one class with parsing functionality for every supported function type, and makes for more readable classes.
 
 ### 7. Moving Forward
 There's still some things I would like to add to this application, but were too complex for me to do so initially.
 
-One is making a proper function parser that stores the symbols of
-a function in a stack data structure (when parsing in reverse polish notation). This will enable for higher levels of support on the ranges of functions possible
+One is making a proper function parser that stores the important symbols of
+a function in a stack data structure when a function is inputted in RPN (reverse polish notation). This will enable for higher levels of support on the ranges of functions possible
 including additional terms, horizontal scaling coefficients, and more.
 
 Another thing I really want to implement is a graphical visualizer that plots the
