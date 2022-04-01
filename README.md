@@ -51,7 +51,51 @@ scaling factor (a in ax, acos(x), alog(x), etc.) and no other function constants
 - As a user, I want to load my current Riemman Sum computation and computation history from file.
 
 ### 5. "Phase 4: Task 2
+A representative example of how events related to the adding and removing of Xs (Computations) to Y (RiemmanSum) are logged
+in the application.
+```
+Thu Mar 31 20:09:32 PDT 2022
+Added Computation #1 of name: 5sin(x) and type: left sum to Riemman Sum Computation history.
 
+Thu Mar 31 20:09:39 PDT 2022
+Added Computation #2 of name: 2x and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:09:45 PDT 2022
+Added Computation #3 of name: -3log(x) and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:09:55 PDT 2022
+Added Computation #4 of name: -90ln(x) and type: right sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:09:57 PDT 2022
+Removed Computation #4 of name: -90ln(x) and type: right sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:09:57 PDT 2022
+Removed Computation #3 of name: -3log(x) and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:09:58 PDT 2022
+Removed Computation #2 of name: 2x and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:09 PDT 2022
+Added Computation #2 of name: 82tan(x) and type: left sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:18 PDT 2022
+Added Computation #3 of name: 3cos(x) and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:26 PDT 2022
+Added Computation #4 of name: 7x and type: right sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:28 PDT 2022
+Removed Computation #4 of name: 7x and type: right sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:28 PDT 2022
+Removed Computation #3 of name: 3cos(x) and type: midpoint sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:28 PDT 2022
+Removed Computation #2 of name: 82tan(x) and type: left sum to Riemman Sum Computation history.
+
+Thu Mar 31 20:10:29 PDT 2022
+Removed Computation #1 of name: 5sin(x) and type: left sum to Riemman Sum Computation history.
+```
 
 ### 6. "Phase 4: Task 3
 

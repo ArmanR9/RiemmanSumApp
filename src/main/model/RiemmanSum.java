@@ -159,9 +159,12 @@ public class RiemmanSum implements Writable {
         int historySize = this.getComputationHistorySize();
 
         if (historySize > 0) {
+            String fnName = this.getComputationHistory().get(historySize - 1).getComputationFunction();
+            String sumType = this.getComputationHistory().get(historySize - 1).getRiemmanSumTypeString();
+
             this.getComputationHistory().remove(historySize - 1);
             String eventDesc = "Removed Computation #" + historySize
-                    + " of name: " + currentFunction.getFunction() + " and type: " + getRiemmanSumType()
+                    + " of name: " + fnName + " and type: " + sumType
                     + " sum to Riemman Sum Computation history.";
             EventLog.getInstance().logEvent(new Event(eventDesc));
         }
