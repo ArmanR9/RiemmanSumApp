@@ -3,6 +3,8 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Stack;
+
 /*
     Function parser that takes in a mathematical function and type, and provides
     utility for computing such function at a given x value.
@@ -14,8 +16,9 @@ public class MathFunction implements Writable {
         LINEAR
     }
 
-    private FuncType functionType;
-    private String unparsedFunction;
+    private final FuncType functionType;
+    private final String unparsedFunction;
+    private final String unparsedFunctionNoTrim;
 
     private double verticalCoeff;
     private String functionName;
@@ -26,9 +29,10 @@ public class MathFunction implements Writable {
     //           unparsedFunction must abide by constraints outlined in README.md
     // EFFECTS: Constructs a math function with the function type (trig, log, linear) and its unparsed
     //          function input
-    public MathFunction(String type, String unparsedFunction) {
+    public MathFunction(String type, String inputFunction) {
         this.functionType = parseFnType(type.trim());
-        this.unparsedFunction = unparsedFunction.trim().replace("*", "");
+        this.unparsedFunctionNoTrim = inputFunction;
+        this.unparsedFunction = inputFunction.trim().replace("*", "");
 
         this.verticalCoeff = 1.0; // Default values
         this.functionName = this.unparsedFunction;
@@ -41,6 +45,7 @@ public class MathFunction implements Writable {
         this.functionName = parsedFn;
         this.functionType = parseFnType(fnType);
         this.unparsedFunction = unparsedFn;
+        this.unparsedFunctionNoTrim = unparsedFn;
         this.verticalCoeff = vertCoeff;
         this.iterator = internalIterator;
     }
@@ -112,11 +117,89 @@ public class MathFunction implements Writable {
         }
     }
 
+    // DISCLAIMER: Can only compute with integer values of x. As such, massive error may accumulate. Parser is WIP
     // MODIFIES: this
     // EFFECTS: Computes linear function at the x value specified.
     private double computeLinearFunc(double x) {
-        parseVertDisp();
-        return verticalCoeff * x;
+        // Old method:
+        // parseVertDisp();
+        // return verticalCoeff * x;
+        // New method:
+        int newX = (int)x;
+        String expression = unparsedFunctionNoTrim.replace("x", String.valueOf(newX));
+        System.out.println(expression);
+        Stack<Integer> bothOperands = new Stack<>();    // Operands to compute (ie: 7 and 2)
+        Stack<Integer> operandResolver = new Stack<>(); // Resolves current operand (ie; "234" to int)
+        int currentOp = 0;                              // Current operator being resolved
+        int result = 0;
+
+        for (int i = 0; i < expression.length(); ++i) {
+            boolean isOperator = checkIfSupportedOp(expression.charAt(i));
+            if (isOperator) {
+                if (bothOperands.empty()) {
+                    throw new ArithmeticException("Function is not correctly in post-fix");
+                }
+                int operand2 = bothOperands.peek();
+                bothOperands.pop();
+
+                if (bothOperands.empty()) {
+                    throw new ArithmeticException("Function is not correctly in post-fix");
+                }
+
+                int operand1 = bothOperands.peek();
+                bothOperands.pop();
+
+                result = computeResult(operand1, operand2, expression.charAt(i));
+                bothOperands.push(result);
+
+            } else if (expression.charAt(i) == ' ') {
+                if (!operandResolver.empty()) { // need this if space after an operator
+                    for (int j = 0; !operandResolver.empty(); ++j) {
+                        currentOp += operandResolver.peek() * Math.pow(10, j);
+                        operandResolver.pop();
+                    }
+                    bothOperands.push(currentOp);
+                    currentOp = 0;
+                }
+            } else if (expression.charAt(i) >= '0' && expression.charAt(i) <= '9') {
+                operandResolver.push(expression.charAt(i) - '0'); // Convert op to an integer
+            } else {
+                throw new ArithmeticException("NaN");
+            }
+        }
+        return result;
+    }
+
+    // EFFECTS: Returns true if character is one of (+, -, /, *); false otherwise
+    private boolean checkIfSupportedOp(char ch) {
+        switch (ch) {
+            case '+':
+                return true;
+            case '-':
+                return true;
+            case '/':
+                return true;
+            case '*':
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // EFFECTS: Applies "op" operator onto operands op1 and op2.
+    private int computeResult(int op1, int op2, char op) {
+        switch (op) {
+            case '+':
+                return op1 + op2;
+            case '-':
+                return op1 - op2;
+            case '*':
+                return op1 * op2;
+            case '/':
+                return op1 / op2;
+            default:
+                return 0;
+        }
     }
 
     // MODIFIES: this
